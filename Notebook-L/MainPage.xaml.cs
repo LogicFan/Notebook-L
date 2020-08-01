@@ -32,7 +32,10 @@ namespace Notebook_L
         #region TabView
         private void TabView_Initialization(object sender, RoutedEventArgs e)
         {
-            (sender as TabView).TabItems.Add(TabView_Create());
+            TabView tabView = sender as TabView;
+
+            // Create a default TabItem
+            tabView.TabItems.Add(TabView_Create());
         }
 
         private TabViewItem TabView_Create()

@@ -1,19 +1,30 @@
-﻿<Page
-    x:Class="Notebook_L.MainPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Notebook_L"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
-
+﻿<Page x:Class="Notebook_L.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:Notebook_L"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
     <Grid>
-        <muxc:TabView 
-            x:Name="TabView_Document"
-            AddTabButtonClick="TabView_ButtonClick_Add" 
-            TabCloseRequested="TabView_ButtonClick_Close"
-            Loaded="TabView_Initialization"/>
+        <muxc:TabView x:Name="TabView_Document"
+                      AddTabButtonClick="TabView_ButtonClick_Add" 
+                      TabCloseRequested="TabView_ButtonClick_Close"
+                      Loaded="TabView_Initialization">
+            <muxc:TabView.TabStripHeader>
+                <Button x:Name="Button_Settings" 
+                        VerticalAlignment="Bottom" 
+                        Background="{x:Null}"
+                        Height="32" 
+                        Width="32" 
+                        Padding="0">
+                    <SymbolIcon Symbol="Setting" 
+                                VerticalAlignment="Center" 
+                                HorizontalAlignment="Center"/>
+                </Button>
+            </muxc:TabView.TabStripHeader>
+        </muxc:TabView>
+        
     </Grid>
 </Page>
