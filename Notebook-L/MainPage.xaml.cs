@@ -42,16 +42,16 @@ namespace Notebook_L
         {
             TabViewItem newItem = new TabViewItem
             {
-                Header = "New Tab",
+                Header = "Home",
                 IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource()
                 {
-                    Symbol = Symbol.Document
+                    Symbol = Symbol.Home
                 }
             };
 
             Frame frame = new Frame();
 
-            frame.Navigate(typeof(SamplePage1));
+            frame.Navigate(typeof(HomePage));
 
             newItem.Content = frame;
             return newItem;
