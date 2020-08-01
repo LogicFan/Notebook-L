@@ -13,18 +13,20 @@
                       TabCloseRequested="TabView_ButtonClick_Close"
                       Loaded="TabView_Initialization">
             <muxc:TabView.TabStripHeader>
-                <Button x:Name="Button_Settings" 
-                        VerticalAlignment="Bottom" 
-                        Background="{x:Null}"
-                        Height="32" 
-                        Width="32" 
-                        Padding="0">
-                    <SymbolIcon Symbol="Setting" 
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Center"/>
-                </Button>
+                <StackPanel Orientation="Horizontal">
+                    <Grid Width="8"/>
+                    <Button x:Name="Button_Settings" 
+                            VerticalAlignment="Bottom" 
+                            Background="Transparent"
+                            Height="32" 
+                            Width="32" 
+                            Padding="0">
+                        <SymbolIcon Symbol="Setting" 
+                                    VerticalAlignment="Center" 
+                                    HorizontalAlignment="Center"/>
+                    </Button>
+                </StackPanel>
             </muxc:TabView.TabStripHeader>
         </muxc:TabView>
-        
     </Grid>
 </Page>
