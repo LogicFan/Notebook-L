@@ -29,40 +29,40 @@ namespace Notebook_L
             this.InitializeComponent();
         }
 
-        private void TabView_Loaded(object sender, RoutedEventArgs e)
+        #region TabView
+        private void TabView_Initialization(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                (sender as TabView).TabItems.Add(CreateNewTab(i));
-            }
+            (sender as TabView).TabItems.Add(TabView_Create());
         }
 
-        private void TabView_AddButtonClick(TabView sender, object args)
-        {
-            sender.TabItems.Add(CreateNewTab(sender.TabItems.Count));
-        }
-
-        private void TabView_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
-        {
-            sender.TabItems.Remove(args.Tab);
-        }
-
-        private TabViewItem CreateNewTab(int index)
+        private TabViewItem TabView_Create()
         {
             TabViewItem newItem = new TabViewItem
             {
-                Header = $"Document {index}",
-                IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource() { Symbol = Symbol.Document }
+                Header = "New Tab",
+                IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource()
+                {
+                    Symbol = Symbol.Document
+                }
             };
 
-            // The content of the tab is often a frame that contains a page, though it could be any UIElement.
             Frame frame = new Frame();
 
             frame.Navigate(typeof(SamplePage1));
 
             newItem.Content = frame;
-
             return newItem;
         }
+
+        private void TabView_ButtonClick_Add(TabView sender, object args)
+        {
+            sender.TabItems.Add(TabView_Create());
+        }
+
+        private void TabView_ButtonClick_Close(TabView sender, TabViewTabCloseRequestedEventArgs args)
+        {
+            sender.TabItems.Remove(args.Tab);
+        }
+        #endregion
     }
 }

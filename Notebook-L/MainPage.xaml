@@ -10,6 +10,10 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
     <Grid>
-        <muxc:TabView x:Name="TabView1" SelectedIndex="0" Margin="-12" AddTabButtonClick="TabView_AddButtonClick" TabCloseRequested="TabView_TabCloseRequested" Loaded="TabView_Loaded" MinHeight="475"/>
+        <muxc:TabView 
+            x:Name="TabView_Document"
+            AddTabButtonClick="TabView_ButtonClick_Add" 
+            TabCloseRequested="TabView_ButtonClick_Close"
+            Loaded="TabView_Initialization"/>
     </Grid>
 </Page>
