@@ -3,20 +3,22 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.ApplicationModel.DataTransfer;
 using muxc = Microsoft.UI.Xaml.Controls;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 
 namespace Notebook_L
 {
     public sealed partial class MainPage : Page
     {
+        private const String DataIdentifier = "MainPage_TabView_TabViewItem";
+
         public MainPage()
         {
             this.InitializeComponent();
         }
 
         #region TabView
-        // Used by:
-        private const string DataIdentifier = "MainPage_TabView_TabViewItem";
-
         // Used by: TabView_AddTabButtonClick
         //          TabView_Loaded
         private muxc.TabViewItem CreateDefaultTabViewItem()
@@ -30,9 +32,8 @@ namespace Notebook_L
                 }
             };
 
-            Frame frame = new Frame();
-            frame.Navigate(typeof(HomePage));
-            newItem.Content = frame;
+            newItem.Content = new Frame();
+            (newItem.Content as Frame).Navigate(typeof(HomePage));
 
             return newItem;
         }
@@ -47,6 +48,14 @@ namespace Notebook_L
             }
         }
 
+        private async void TabView_TabItemsChanged(muxc.TabView sender, Windows.Foundation.Collections.IVectorChangedEventArgs args)
+        {
+            if (sender.TabItems.Count == 0)
+            {
+                await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+            }
+        }
+
         private void TabView_AddTabButtonClick(muxc.TabView sender, object args)
         {
             sender.TabItems.Add(CreateDefaultTabViewItem());
@@ -55,16 +64,29 @@ namespace Notebook_L
         private void TabView_TabCloseRequested(muxc.TabView sender, muxc.TabViewTabCloseRequestedEventArgs args)
         {
             sender.TabItems.Remove(args.Tab);
-
-            if (sender.TabItems.Count == 0)
-            {
-                Application.Current.Exit();
-            }
         }
 
-        private void TabView_TabDroppedOutside(muxc.TabView sender, muxc.TabViewTabDroppedOutsideEventArgs args)
+        private async void TabView_TabDroppedOutside(muxc.TabView sender, muxc.TabViewTabDroppedOutsideEventArgs args)
         {
-            throw new NotImplementedException();
+            CoreApplicationView newView = CoreApplication.CreateNewView();
+            Int32 Id = 0;
+
+            this.TabView_Document.TabItems.Remove(args.Tab);
+
+            await newView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                MainPage newPage = new MainPage();
+                Frame frame = new Frame();
+
+                newPage.TabView_Document.TabItems.Add(args.Tab);
+
+                frame.Navigate(typeof(MainPage), newPage);
+                Window.Current.Content = frame;
+                Window.Current.Activate();
+                Id = ApplicationView.GetForCurrentView().Id;
+            });
+
+            await ApplicationViewSwitcher.TryShowAsStandaloneAsync(Id);
         }
 
         private void TabView_TabStripDragOver(object sender, DragEventArgs e)

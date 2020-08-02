@@ -14,6 +14,7 @@
                       CanDragTabs="True"
                       CanReorderTabs="True"
                       Loaded="TabView_Loaded"
+                      TabItemsChanged="TabView_TabItemsChanged"
                       AddTabButtonClick="TabView_AddTabButtonClick" 
                       TabCloseRequested="TabView_TabCloseRequested"
                       TabDroppedOutside="TabView_TabDroppedOutside"
