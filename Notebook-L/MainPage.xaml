@@ -6,6 +6,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      NavigationCacheMode="Required"
       xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
     <Grid>
         <muxc:TabView x:Name="TabView_Document"
@@ -15,7 +16,8 @@
             <muxc:TabView.TabStripHeader>
                 <StackPanel Orientation="Horizontal">
                     <Grid Width="8"/>
-                    <Button x:Name="Button_Settings" 
+                    <Button x:Name="Button_Settings"
+                            Click="Button_Click_Settings"
                             VerticalAlignment="Bottom" 
                             Background="Transparent"
                             Height="32" 

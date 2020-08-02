@@ -15,13 +15,8 @@ using Windows.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Controls;
 using AppUIBasics.SamplePages;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
 namespace Notebook_L
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
         public MainPage()
@@ -34,8 +29,10 @@ namespace Notebook_L
         {
             TabView tabView = sender as TabView;
 
-            // Create a default TabItem
-            tabView.TabItems.Add(TabView_Create());
+            if (tabView.TabItems.Count == 0)
+            {
+                tabView.TabItems.Add(TabView_Create());
+            }
         }
 
         private TabViewItem TabView_Create()
@@ -50,10 +47,9 @@ namespace Notebook_L
             };
 
             Frame frame = new Frame();
-
             frame.Navigate(typeof(HomePage));
-
             newItem.Content = frame;
+
             return newItem;
         }
 
@@ -65,6 +61,19 @@ namespace Notebook_L
         private void TabView_ButtonClick_Close(TabView sender, TabViewTabCloseRequestedEventArgs args)
         {
             sender.TabItems.Remove(args.Tab);
+
+            if (sender.TabItems.Count == 0)
+            {
+                // Should close current window
+                throw new NotImplementedException();
+            }
+        }
+        #endregion
+
+        #region Settings
+        private void Button_Click_Settings(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(SettingsPage), new SettingsPage(this));
         }
         #endregion
     }
