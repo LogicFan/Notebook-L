@@ -24,7 +24,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Grid Width="8"/>
                     <Button x:Name="Button_Settings"
-                            Click="Button_Click_Settings"
+                            Click="Button_Settings_Click"
                             VerticalAlignment="Bottom" 
                             Background="Transparent"
                             Height="32" 

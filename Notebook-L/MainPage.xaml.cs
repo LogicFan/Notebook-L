@@ -1,21 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml.Controls;
-using AppUIBasics.SamplePages;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.UI.WindowManagement;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace Notebook_L
 {
@@ -32,9 +19,9 @@ namespace Notebook_L
 
         // Used by: TabView_AddTabButtonClick
         //          TabView_Loaded
-        private TabViewItem CreateDefaultTabViewItem()
+        private muxc.TabViewItem CreateDefaultTabViewItem()
         {
-            TabViewItem newItem = new TabViewItem
+            muxc.TabViewItem newItem = new muxc.TabViewItem
             {
                 Header = "Home",
                 IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource()
@@ -52,7 +39,7 @@ namespace Notebook_L
 
         private void TabView_Loaded(object sender, RoutedEventArgs e)
         {
-            TabView tabView = sender as TabView;
+            muxc.TabView tabView = sender as muxc.TabView;
 
             if (tabView.TabItems.Count == 0)
             {
@@ -60,12 +47,12 @@ namespace Notebook_L
             }
         }
 
-        private void TabView_AddTabButtonClick(TabView sender, object args)
+        private void TabView_AddTabButtonClick(muxc.TabView sender, object args)
         {
             sender.TabItems.Add(CreateDefaultTabViewItem());
         }
 
-        private void TabView_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
+        private void TabView_TabCloseRequested(muxc.TabView sender, muxc.TabViewTabCloseRequestedEventArgs args)
         {
             sender.TabItems.Remove(args.Tab);
 
@@ -75,7 +62,7 @@ namespace Notebook_L
             }
         }
 
-        private void TabView_TabDroppedOutside(TabView sender, TabViewTabDroppedOutsideEventArgs args)
+        private void TabView_TabDroppedOutside(muxc.TabView sender, muxc.TabViewTabDroppedOutsideEventArgs args)
         {
             throw new NotImplementedException();
         }
@@ -90,15 +77,15 @@ namespace Notebook_L
             throw new NotImplementedException();
         }
 
-        private void TabView_TabDragStarting(object sender, TabViewTabDragStartingEventArgs args)
+        private void TabView_TabDragStarting(object sender, muxc.TabViewTabDragStartingEventArgs args)
         {
             args.Data.Properties.Add(DataIdentifier, args.Tab);
             args.Data.RequestedOperation = DataPackageOperation.Move;
         }
         #endregion
 
-        #region Settings
-        private void Button_Click_Settings(object sender, RoutedEventArgs e)
+        #region Button_Settings
+        private void Button_Settings_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(SettingsPage), new SettingsPage(this));
         }
