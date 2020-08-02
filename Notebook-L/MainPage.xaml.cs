@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Controls;
 using AppUIBasics.SamplePages;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.UI.WindowManagement;
 
 namespace Notebook_L
 {
@@ -25,17 +27,12 @@ namespace Notebook_L
         }
 
         #region TabView
-        private void TabView_Initialization(object sender, RoutedEventArgs e)
-        {
-            TabView tabView = sender as TabView;
+        // Used by:
+        private const string DataIdentifier = "MainPage_TabView_TabViewItem";
 
-            if (tabView.TabItems.Count == 0)
-            {
-                tabView.TabItems.Add(TabView_Create());
-            }
-        }
-
-        private TabViewItem TabView_Create()
+        // Used by: TabView_AddTabButtonClick
+        //          TabView_Loaded
+        private TabViewItem CreateDefaultTabViewItem()
         {
             TabViewItem newItem = new TabViewItem
             {
@@ -53,12 +50,22 @@ namespace Notebook_L
             return newItem;
         }
 
-        private void TabView_ButtonClick_Add(TabView sender, object args)
+        private void TabView_Loaded(object sender, RoutedEventArgs e)
         {
-            sender.TabItems.Add(TabView_Create());
+            TabView tabView = sender as TabView;
+
+            if (tabView.TabItems.Count == 0)
+            {
+                tabView.TabItems.Add(CreateDefaultTabViewItem());
+            }
         }
 
-        private void TabView_ButtonClick_Close(TabView sender, TabViewTabCloseRequestedEventArgs args)
+        private void TabView_AddTabButtonClick(TabView sender, object args)
+        {
+            sender.TabItems.Add(CreateDefaultTabViewItem());
+        }
+
+        private void TabView_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
         {
             sender.TabItems.Remove(args.Tab);
 
@@ -66,6 +73,27 @@ namespace Notebook_L
             {
                 Application.Current.Exit();
             }
+        }
+
+        private void TabView_TabDroppedOutside(TabView sender, TabViewTabDroppedOutsideEventArgs args)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void TabView_TabStripDragOver(object sender, DragEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void TabView_TabStripDrop(object sender, DragEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void TabView_TabDragStarting(object sender, TabViewTabDragStartingEventArgs args)
+        {
+            args.Data.Properties.Add(DataIdentifier, args.Tab);
+            args.Data.RequestedOperation = DataPackageOperation.Move;
         }
         #endregion
 

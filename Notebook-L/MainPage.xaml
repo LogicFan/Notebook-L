@@ -10,9 +10,16 @@
       xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
     <Grid>
         <muxc:TabView x:Name="TabView_Document"
-                      AddTabButtonClick="TabView_ButtonClick_Add" 
-                      TabCloseRequested="TabView_ButtonClick_Close"
-                      Loaded="TabView_Initialization">
+                      AllowDropTabs="True"
+                      CanDragTabs="True"
+                      CanReorderTabs="True"
+                      Loaded="TabView_Loaded"
+                      AddTabButtonClick="TabView_AddTabButtonClick" 
+                      TabCloseRequested="TabView_TabCloseRequested"
+                      TabDroppedOutside="TabView_TabDroppedOutside"
+                      TabStripDragOver="TabView_TabStripDragOver"
+                      TabStripDrop="TabView_TabStripDrop"
+                      TabDragStarting="TabView_TabDragStarting" >
             <muxc:TabView.TabStripHeader>
                 <StackPanel Orientation="Horizontal">
                     <Grid Width="8"/>
