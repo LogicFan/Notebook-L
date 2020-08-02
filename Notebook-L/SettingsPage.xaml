@@ -6,9 +6,24 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
     <Grid>
-        <Button Click="Button_Click">Back</Button>
+        <muxc:NavigationView x:Name="NavigationView_Settings"
+                             PaneDisplayMode="Left"
+                             PaneTitle="Settings"
+                             IsBackButtonVisible="Auto"
+                             IsBackEnabled="True"
+                             IsSettingsVisible="False"
+                             BackRequested="NavigationView_BackRequested">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem Icon="Play" Content="Menu Item1" Tag="SamplePage1" />
+                <muxc:NavigationViewItem Icon="Save" Content="Menu Item2" Tag="SamplePage2" />
+                <muxc:NavigationViewItem Icon="Refresh" Content="Menu Item3" Tag="SamplePage3" />
+                <muxc:NavigationViewItem Icon="Download" Content="Menu Item4" Tag="SamplePage4" />
+            </muxc:NavigationView.MenuItems>
+            <Frame x:Name="contentFrame"/>
+        </muxc:NavigationView>
     </Grid>
 </Page>
