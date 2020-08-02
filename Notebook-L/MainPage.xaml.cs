@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Controls;
 using AppUIBasics.SamplePages;
+using Notebook_L.Settings;
 
 namespace Notebook_L
 {
