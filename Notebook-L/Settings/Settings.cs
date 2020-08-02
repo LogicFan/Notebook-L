@@ -4,21 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Notebook_L
+namespace Notebook_L.Settings
 {
-    namespace Settings
+    static class Settings
     {
-        static class Settings
+        static class Notebook
         {
-            static class Notebook
-            {
 
-            }
+        }
 
-            static void InitializeDefaultSettings()
-            {
+        static void InitializeDefaultSettings()
+        {
 
-            }
         }
     }
 }
