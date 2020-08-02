@@ -64,8 +64,7 @@ namespace Notebook_L
 
             if (sender.TabItems.Count == 0)
             {
-                // Should close current window
-                throw new NotImplementedException();
+                Application.Current.Exit();
             }
         }
         #endregion
