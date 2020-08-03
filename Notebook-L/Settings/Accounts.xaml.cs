@@ -15,29 +15,16 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Notebook_L
+namespace Notebook_L.Settings
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SettingsPage : Page
+    public sealed partial class Accounts : Page
     {
-        MainPage m_mainPage;
-
-        public SettingsPage()
+        public Accounts()
         {
             this.InitializeComponent();
-        }
-
-        public SettingsPage(MainPage mainPage)
-        {
-            this.m_mainPage = mainPage;
-            this.InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(MainPage), m_mainPage);
         }
     }
 }

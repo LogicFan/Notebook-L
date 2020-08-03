@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Notebook_L
+namespace Notebook_L.Settings
 {
     static class Settings
     {

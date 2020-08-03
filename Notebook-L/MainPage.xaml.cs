@@ -7,6 +7,8 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Microsoft.UI.Xaml.Controls;
+using AppUIBasics.SamplePages;
+using Notebook_L.Settings;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.Generic;
 using System.Xml.Serialization;
