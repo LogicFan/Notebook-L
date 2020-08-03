@@ -6,19 +6,38 @@ using muxc = Microsoft.UI.Xaml.Controls;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
+using Microsoft.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
+using System.Collections.Generic;
+using System.Xml.Serialization;
+using System.IO;
+using System.Text;
+using Newtonsoft.Json;
+using Windows.UI.WindowManagement;
+using Windows.UI.Xaml.Hosting;
+using Windows.Foundation.Collections;
 
 namespace Notebook_L
 {
     public sealed partial class MainPage : Page
     {
-        private const String DataIdentifier = "MainPage_TabView_TabViewItem";
 
         public MainPage()
         {
             this.InitializeComponent();
         }
 
+        public MainPage(AppWindow appWindow)
+        {
+            this.appWindow = appWindow;
+            this.InitializeComponent();
+        }
+
         #region TabView
+        private const String DataIdentifier = "MainPage_TabView_TabViewItem";
+        private AppWindow appWindow = null;
+        private static Int64 windowCounter = 0;
+
         // Used by: TabView_AddTabButtonClick
         //          TabView_Loaded
         private muxc.TabViewItem CreateDefaultTabViewItem()
@@ -26,7 +45,7 @@ namespace Notebook_L
             muxc.TabViewItem newItem = new muxc.TabViewItem
             {
                 Header = "Home",
-                IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource()
+                IconSource = new muxc.SymbolIconSource()
                 {
                     Symbol = Symbol.Home
                 }
@@ -48,11 +67,19 @@ namespace Notebook_L
             }
         }
 
-        private async void TabView_TabItemsChanged(muxc.TabView sender, Windows.Foundation.Collections.IVectorChangedEventArgs args)
+        private async void TabView_TabItemsChanged(muxc.TabView sender, IVectorChangedEventArgs args)
         {
             if (sender.TabItems.Count == 0)
             {
-                await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+                if (appWindow != null)
+                {
+                    await appWindow.CloseAsync();
+                }
+                else
+                {
+                    await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+                }
+
             }
         }
 
@@ -68,35 +95,66 @@ namespace Notebook_L
 
         private async void TabView_TabDroppedOutside(muxc.TabView sender, muxc.TabViewTabDroppedOutsideEventArgs args)
         {
-            CoreApplicationView newView = CoreApplication.CreateNewView();
-            Int32 Id = 0;
-
-            this.TabView_Document.TabItems.Remove(args.Tab);
-
-            await newView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            // Removing the last TabViewItem in TabView will result lose that TabViewItem
+            if (this.TabView_Document.TabItems.Count > 1)
             {
-                MainPage newPage = new MainPage();
-                Frame frame = new Frame();
+                AppWindow newWindow = await AppWindow.TryCreateAsync();
 
+                var newPage = new MainPage(newWindow);
+
+                ElementCompositionPreview.SetAppWindowContent(newWindow, newPage);
+
+                // Transfer tabs from one window to another 
+                this.TabView_Document.TabItems.Remove(args.Tab);
                 newPage.TabView_Document.TabItems.Add(args.Tab);
 
-                frame.Navigate(typeof(MainPage), newPage);
-                Window.Current.Content = frame;
-                Window.Current.Activate();
-                Id = ApplicationView.GetForCurrentView().Id;
-            });
-
-            await ApplicationViewSwitcher.TryShowAsStandaloneAsync(Id);
+                await newWindow.TryShowAsync();
+            }
         }
 
-        private void TabView_TabStripDragOver(object sender, DragEventArgs e)
+        private void TabView_TabStripDragOver(object sender, DragEventArgs args)
         {
-            throw new NotImplementedException();
+            // Only allow drop tabs
+            if (args.DataView.Properties.ContainsKey(DataIdentifier))
+            {
+                args.AcceptedOperation = DataPackageOperation.Move;
+            }
         }
 
-        private void TabView_TabStripDrop(object sender, DragEventArgs e)
+        private void TabView_TabStripDrop(object sender, DragEventArgs args)
         {
-            throw new NotImplementedException();
+            if (args.DataView.Properties.TryGetValue(DataIdentifier, out object obj))
+            {
+                IList<object> destinationTabs = (sender as TabView).TabItems;
+
+                // Find location in destination window
+                Int32 index = -1;
+                for (Int32 i = 0; i < destinationTabs.Count; i++)
+                {
+                    TabViewItem tab = destinationTabs[i] as TabViewItem;
+                    if (args.GetPosition(tab).X - tab.ActualWidth < 0)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+
+                // Remove tab from old window
+                ((obj as TabViewItem).Parent as muxc.Primitives.TabViewListView).Items.Remove(obj);
+
+                if (index < 0)
+                {
+                    // Add to the end of the list
+                    destinationTabs.Add(obj);
+                }
+                else
+                {
+                    // Otherwise, insert to given location
+                    destinationTabs.Insert(index, obj);
+                }
+
+                (sender as TabView).SelectedItem = obj;
+            }
         }
 
         private void TabView_TabDragStarting(object sender, muxc.TabViewTabDragStartingEventArgs args)
