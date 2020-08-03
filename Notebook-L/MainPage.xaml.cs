@@ -217,7 +217,7 @@ namespace Notebook_L
             };
 
             tabViewItem.Content = new Frame();
-            (tabViewItem.Content as Frame).Navigate(typeof(SettingsPage));
+            (tabViewItem.Content as Frame).Navigate(typeof(HomePage));
 
             return tabViewItem;
         }
@@ -237,7 +237,7 @@ namespace Notebook_L
                         {
                             Int32 id = ApplicationView.GetForCurrentView().Id;
                             await ApplicationViewSwitcher.TryShowAsStandaloneAsync(id);
-                        } 
+                        }
                         else
                         {
                             await page.appWindow.TryShowAsync();
@@ -249,7 +249,9 @@ namespace Notebook_L
             }
 
             log.Info("Create a new TabViewItem");
-            this.TabView_Document.TabItems.Add(CreateSettingsTabViewItem());
+            TabViewItem tabViewItem = CreateSettingsTabViewItem();
+            this.TabView_Document.TabItems.Add(tabViewItem);
+            this.TabView_Document.SelectedItem = tabViewItem;
         }
         #endregion
     }
