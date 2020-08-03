@@ -11,6 +11,8 @@ using Windows.UI.WindowManagement;
 using Windows.UI.Xaml.Hosting;
 using Windows.Foundation.Collections;
 using MetroLog;
+using System.Threading;
+using Windows.UI.Xaml.Navigation;
 
 namespace Notebook_L
 {
@@ -18,28 +20,47 @@ namespace Notebook_L
     {
         private readonly ILogger log = LogManagerFactory.DefaultLogManager.GetLogger<MainPage>();
 
+        public static ISet<MainPage> Instances { get; } = new HashSet<MainPage>();
+
         public MainPage()
         {
+            log.Info("Add this to Instances");
+            MainPage.Instances.Add(this);
+            
             this.InitializeComponent();
+
+            ApplicationView.GetForCurrentView().Consolidated += (ApplicationView appView, ApplicationViewConsolidatedEventArgs args) =>
+            {
+                log.Info("Remove this from Instances");
+                MainPage.Instances.Remove(this);
+            };
         }
 
         public MainPage(AppWindow appWindow)
         {
+            log.Info("Add this to Instances");
+            MainPage.Instances.Add(this);
+
             this.appWindow = appWindow;
             this.InitializeComponent();
+
+            this.appWindow.Closed += (AppWindow window, AppWindowClosedEventArgs args) => {
+                log.Info("Remove this from Instances");
+                MainPage.Instances.Remove(this);
+            };
         }
 
         #region TabView
         private const String DataIdentifier = "MainPage_TabView_TabViewItem";
+        private const String HomeTabId = "Home";
         private AppWindow appWindow = null;
 
-        // Used by: TabView_AddTabButtonClick
-        //          TabView_Loaded
         private muxc.TabViewItem CreateDefaultTabViewItem()
         {
             muxc.TabViewItem tabViewItem = new muxc.TabViewItem
             {
-                Header = "Home",
+                Name = HomeTabId,
+                Header = HomeTabId,
                 IconSource = new muxc.SymbolIconSource()
                 {
                     Symbol = Symbol.Home
@@ -107,7 +128,7 @@ namespace Notebook_L
                 log.Info("Create a new AppWindow with content MainPage");
 
                 AppWindow newWindow = await AppWindow.TryCreateAsync();
-                var newPage = new MainPage(newWindow);
+                MainPage newPage = new MainPage(newWindow);
                 ElementCompositionPreview.SetAppWindowContent(newWindow, newPage);
 
                 log.Info("Move TabViewItem from old window to new AppWindow");
@@ -181,9 +202,54 @@ namespace Notebook_L
         #endregion
 
         #region Button_Settings
-        private void Button_Settings_Click(object sender, RoutedEventArgs e)
+        private const String SettingsTabId = "Settings";
+
+        private muxc.TabViewItem CreateSettingsTabViewItem()
         {
-            this.Frame.Navigate(typeof(SettingsPage), new SettingsPage(this));
+            muxc.TabViewItem tabViewItem = new muxc.TabViewItem
+            {
+                Name = "Settings",
+                Header = "Settings",
+                IconSource = new muxc.SymbolIconSource()
+                {
+                    Symbol = Symbol.Setting
+                }
+            };
+
+            tabViewItem.Content = new Frame();
+            (tabViewItem.Content as Frame).Navigate(typeof(SettingsPage));
+
+            return tabViewItem;
+        }
+
+        private async void Button_Settings_Click(object sender, RoutedEventArgs e)
+        {
+            log.Info("Button_Settings_Click");
+
+            foreach (MainPage page in MainPage.Instances)
+            {
+                foreach (TabViewItem item in page.TabView_Document.TabItems)
+                {
+                    if (item.Name == SettingsTabId)
+                    {
+                        log.Info(String.Format("Find TabViewItem with Name = {0}", SettingsTabId));
+                        if (page.appWindow == null)
+                        {
+                            Int32 id = ApplicationView.GetForCurrentView().Id;
+                            await ApplicationViewSwitcher.TryShowAsStandaloneAsync(id);
+                        } 
+                        else
+                        {
+                            await page.appWindow.TryShowAsync();
+                        }
+                        page.TabView_Document.SelectedItem = item;
+                        return;
+                    }
+                }
+            }
+
+            log.Info("Create a new TabViewItem");
+            this.TabView_Document.TabItems.Add(CreateSettingsTabViewItem());
         }
         #endregion
     }

@@ -1,29 +1,24 @@
-﻿using AppUIBasics.SamplePages;
+﻿using MetroLog;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace Notebook_L.Settings
 {
     public sealed partial class SettingsPage : Page
     {
-        private MainPage m_mainPage;
+        private readonly ILogger log = LogManagerFactory.DefaultLogManager.GetLogger<SettingsPage>();
 
         public SettingsPage()
         {
             this.InitializeComponent();
         }
 
-        public SettingsPage(MainPage mainPage)
-        {
-            this.m_mainPage = mainPage;
-            this.InitializeComponent();
-        }
-
         private void NavigationView_BackRequested(muxc.NavigationView sender, muxc.NavigationViewBackRequestedEventArgs args)
         {
-            this.Frame.Navigate(typeof(MainPage), m_mainPage);
+            
         }
 
         private void NavigationView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
