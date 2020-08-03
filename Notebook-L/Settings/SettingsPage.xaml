@@ -10,33 +10,22 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
     <Grid>
-        <muxc:NavigationView x:Name="NavigationView_Settings"
-                             PaneDisplayMode="LeftCompact"
-                             PaneTitle="Settings"
-                             IsBackButtonVisible="Auto"
-                             IsBackEnabled="True"
-                             IsSettingsVisible="False"
-                             Loaded="NavigationView_Loaded"
-                             BackRequested="NavigationView_BackRequested"
-                             SelectionChanged="NavigationView_SelectionChanged">
-            <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Icon="Library" 
-                                         Content="Notebooks" 
-                                         Tag="Notebooks" />
-                <muxc:NavigationViewItem Icon="Account" 
-                                         Content="Accounts" 
-                                         Tag="Accounts" />
-                <muxc:NavigationViewItem Icon="Keyboard" 
-                                         Content="Inputs" 
-                                         Tag="Inputs" />
-                <muxc:NavigationViewItem Icon="Preview" 
-                                         Content="Templates" 
-                                         Tag="Templates" />
-                <muxc:NavigationViewItem Icon="Important" 
-                                         Content="About" 
-                                         Tag="About" />
-            </muxc:NavigationView.MenuItems>
+        <StackPanel Orientation="Horizontal">
+            <ListBox Name="ListBox_Menu" 
+                     Background="Transparent"
+                     SelectionChanged="ListBox_SelectionChanged"
+                     Width="48">
+                <SymbolIcon Symbol="Library"   Tag="Notebooks" Width="48" HorizontalAlignment="Center"/>
+                <SymbolIcon Symbol="Account"   Tag="Accounts"  Width="48" HorizontalAlignment="Center"/>
+                <SymbolIcon Symbol="Keyboard"  Tag="Inputs"    Width="48" HorizontalAlignment="Center"/>
+                <SymbolIcon Symbol="Preview"   Tag="Templates" Width="48" HorizontalAlignment="Center"/>
+                <SymbolIcon Symbol="Important" Tag="About"     Width="48" HorizontalAlignment="Center"/>
+            </ListBox>
+            <Line Y2="1" 
+                  Stretch="Fill"
+                  HorizontalAlignment="Right"
+                  Stroke="{ThemeResource SystemChromeMediumColor}"/>
             <Frame x:Name="Frame_Settings"/>
-        </muxc:NavigationView>
+        </StackPanel>
     </Grid>
 </Page>
