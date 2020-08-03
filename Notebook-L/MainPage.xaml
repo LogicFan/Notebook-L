@@ -6,18 +6,25 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-      NavigationCacheMode="Required"
       xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
     <Grid>
         <muxc:TabView x:Name="TabView_Document"
-                      AddTabButtonClick="TabView_ButtonClick_Add" 
-                      TabCloseRequested="TabView_ButtonClick_Close"
-                      Loaded="TabView_Initialization">
+                      AllowDropTabs="True"
+                      CanDragTabs="True"
+                      CanReorderTabs="True"
+                      Loaded="TabView_Loaded"
+                      TabItemsChanged="TabView_TabItemsChanged"
+                      AddTabButtonClick="TabView_AddTabButtonClick" 
+                      TabCloseRequested="TabView_TabCloseRequested"
+                      TabDroppedOutside="TabView_TabDroppedOutside"
+                      TabStripDragOver="TabView_TabStripDragOver"
+                      TabStripDrop="TabView_TabStripDrop"
+                      TabDragStarting="TabView_TabDragStarting" >
             <muxc:TabView.TabStripHeader>
                 <StackPanel Orientation="Horizontal">
                     <Grid Width="8"/>
                     <Button x:Name="Button_Settings"
-                            Click="Button_Click_Settings"
+                            Click="Button_Settings_Click"
                             VerticalAlignment="Bottom" 
                             Background="Transparent"
                             Height="32" 
