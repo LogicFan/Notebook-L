@@ -470,52 +470,44 @@
     \iftikzumlclassWithoutCoords%
       \iftikzumlclassCircleShape%
         \node[tikzuml simpleinterface style, draw=\tikzumlClassDrawColor, fill=\tikzumlClassFillColor, text=\tikzumlClassTextColor, font=\tikzumlDefaultFont, minimum width=\tikzumlClassMinimumWidth, /tikzuml/class/style] (\tikzumlClassNodeName) {};%
-        \node[anchor=south] (\tikzumlClassNodeName-label) at (\tikzumlClassNodeName.north) {\begin{tabular}{c}\tikzumlClassVPadding \tikzumlClassType \tikzumlClassHPadding \textbf{\ttfamily \tikzumlClassName} \tikzumlClassHPadding \tikzumlClassTags \end{tabular}%
+        \node[anchor=south] (\tikzumlClassNodeName-label) at (\tikzumlClassNodeName.north) {\begin{tabular}{c}\tikzumlClassVPadding \tikzumlClassType \tikzumlClassHPadding \textbf{\tikzumlClassName} \tikzumlClassHPadding \tikzumlClassTags \end{tabular}%
         };%
       \else%
-        \node[tikzuml simpleclass style, draw=\tikzumlClassDrawColor, fill=\tikzumlClassFillColor, text=\tikzumlClassTextColor, font=\tikzumlDefaultFont, minimum width=\tikzumlClassMinimumWidth, /tikzuml/class/style] (\tikzumlClassNodeName) {\begin{tabular}{c}\tikzumlClassVPadding \tikzumlClassType \tikzumlClassHPadding \textbf{\ttfamily \tikzumlClassName} \tikzumlClassHPadding \tikzumlClassTags \end{tabular}%
+        \node[tikzuml simpleclass style, draw=\tikzumlClassDrawColor, fill=\tikzumlClassFillColor, text=\tikzumlClassTextColor, font=\tikzumlDefaultFont, minimum width=\tikzumlClassMinimumWidth, /tikzuml/class/style] (\tikzumlClassNodeName) {\begin{tabular}{c}\tikzumlClassVPadding \tikzumlClassType \tikzumlClassHPadding \textbf{\tikzumlClassName} \tikzumlClassHPadding \tikzumlClassTags \end{tabular}%
         };%
       \fi%
     \else%
       \iftikzumlclassCircleShape%
         \node[tikzuml simpleinterface style, draw=\tikzumlClassDrawColor, fill=\tikzumlClassFillColor, text=\tikzumlClassTextColor, font=\tikzumlDefaultFont, minimum width=\tikzumlClassMinimumWidth, /tikzuml/class/style] (\tikzumlClassNodeName) at (\tikzumlClassPos) {};
-        \node[anchor=south] (\tikzumlClassNodeName-label) at (\tikzumlClassNodeName.north){\begin{tabular}{c}\tikzumlClassVPadding \tikzumlClassType \tikzumlClassHPadding \textbf{\ttfamily \tikzumlClassName} \tikzumlClassHPadding \tikzumlClassTags \end{tabular}%
+        \node[anchor=south] (\tikzumlClassNodeName-label) at (\tikzumlClassNodeName.north){\begin{tabular}{c}\tikzumlClassVPadding \tikzumlClassType \tikzumlClassHPadding \textbf{\tikzumlClassName} \tikzumlClassHPadding \tikzumlClassTags \end{tabular}%
         };%
       \else%
-        \node[tikzuml simpleclass style, draw=\tikzumlClassDrawColor, fill=\tikzumlClassFillColor, text=\tikzumlClassTextColor, font=\tikzumlDefaultFont, minimum width=\tikzumlClassMinimumWidth, /tikzuml/class/style] (\tikzumlClassNodeName) at (\tikzumlClassPos) {\begin{tabular}{c}\tikzumlClassVPadding \tikzumlClassType \tikzumlClassHPadding \textbf{\ttfamily \tikzumlClassName} \tikzumlClassHPadding \tikzumlClassTags \end{tabular}%
+        \node[tikzuml simpleclass style, draw=\tikzumlClassDrawColor, fill=\tikzumlClassFillColor, text=\tikzumlClassTextColor, font=\tikzumlDefaultFont, minimum width=\tikzumlClassMinimumWidth, /tikzuml/class/style] (\tikzumlClassNodeName) at (\tikzumlClassPos) {\begin{tabular}{c}\tikzumlClassVPadding \tikzumlClassType \tikzumlClassHPadding \textbf{\tikzumlClassName} \tikzumlClassHPadding \tikzumlClassTags \end{tabular}%
         };%
       \fi%
     \fi%
   \else%
     \iftikzumlclassWithoutCoords%
-      \node[tikzuml class style, draw=\tikzumlClassDrawColor, fill=\tikzumlClassFillColor, text=\tikzumlClassTextColor, font=\tikzumlDefaultFont, minimum width=\tikzumlClassMinimumWidth, /tikzuml/class/style] (\tikzumlClassNodeName) {\begin{tabular}{c}\tikzumlClassVPadding \tikzumlClassType \tikzumlClassHPadding \textbf{\ttfamily \tikzumlClassName} \tikzumlClassHPadding \tikzumlClassTags \end{tabular}%
+      \node[tikzuml class style, draw=\tikzumlClassDrawColor, fill=\tikzumlClassFillColor, text=\tikzumlClassTextColor, font=\tikzumlDefaultFont, minimum width=\tikzumlClassMinimumWidth, /tikzuml/class/style] (\tikzumlClassNodeName) {\begin{tabular}{c}\tikzumlClassVPadding \tikzumlClassType \tikzumlClassHPadding \textbf{\tikzumlClassName} \tikzumlClassHPadding \tikzumlClassTags \end{tabular}%
       \nodepart{second}%
-      {\ttfamily%
-        \begin{tabular}{l}%
-        \tikzumlClassAttributes%
-        \end{tabular}%
-      }%
+      \begin{tabular}{l}%
+      \tikzumlClassAttributes%
+      \end{tabular}%
       \nodepart{third}%
-      {\ttfamily%
-        \begin{tabular}{l}%
-        \tikzumlClassOperations%
-        \end{tabular}%
-      }%
+      \begin{tabular}{l}%
+      \tikzumlClassOperations%
+      \end{tabular}%
       };%
     \else%
-      \node[tikzuml class style, draw=\tikzumlClassDrawColor, fill=\tikzumlClassFillColor, text=\tikzumlClassTextColor, font=\tikzumlDefaultFont, minimum width=\tikzumlClassMinimumWidth, /tikzuml/class/style] (\tikzumlClassNodeName) at (\tikzumlClassPos) {\begin{tabular}{c}\tikzumlClassVPadding \tikzumlClassType \tikzumlClassHPadding \textbf{\ttfamily \tikzumlClassName} \tikzumlClassHPadding \tikzumlClassTags \end{tabular}%
+      \node[tikzuml class style, draw=\tikzumlClassDrawColor, fill=\tikzumlClassFillColor, text=\tikzumlClassTextColor, font=\tikzumlDefaultFont, minimum width=\tikzumlClassMinimumWidth, /tikzuml/class/style] (\tikzumlClassNodeName) at (\tikzumlClassPos) {\begin{tabular}{c}\tikzumlClassVPadding \tikzumlClassType \tikzumlClassHPadding \textbf{\tikzumlClassName} \tikzumlClassHPadding \tikzumlClassTags \end{tabular}%
       \nodepart{second}%
-      {\ttfamily%
-        \begin{tabular}{l}%
-        \tikzumlClassAttributes%
-        \end{tabular}%
-      }%
+      \begin{tabular}{l}%
+      \tikzumlClassAttributes%
+      \end{tabular}%
       \nodepart{third}%
-      {\ttfamily%
-        \begin{tabular}{l}%
-        \tikzumlClassOperations%
-        \end{tabular}%
-      }%
+      \begin{tabular}{l}%
+      \tikzumlClassOperations%
+      \end{tabular}%
       };%
     \fi%
   \fi%
