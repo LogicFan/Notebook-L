@@ -20,10 +20,10 @@ namespace Notebook_L.Settings
         {
             log.Info("ListBox_Loaded");
 
-            if (Frame_Settings.SourcePageType == null)
+            ListBox listBox = sender as ListBox;
+            if (listBox.SelectedItem == null)
             {
-                log.Info("Empty page, navigate to NotebooksPage");
-                Frame_Settings.Navigate(typeof(NotebooksPage));
+                listBox.SelectedItem = listBox.Items[0];
             }
         }
 
