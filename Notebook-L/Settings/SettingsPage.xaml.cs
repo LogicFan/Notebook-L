@@ -14,14 +14,22 @@ namespace Notebook_L.Settings
         public SettingsPage()
         {
             this.InitializeComponent();
-            log.Info(String.Format("Padding = {0}, Boderding = {1}", this.ListBox_Menu.Padding, this.ListBox_Menu.BorderThickness));
+        }
+
+        private void ListBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            Frame_Settings.Navigate(typeof(NotebooksPage));
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            log.Info("ListBox_SelectionChanged");
+
             String itemTag = (e.AddedItems[0] as SymbolIcon).Tag as String;
 
-            Type itemPage = Type.GetType("Notebook_L.Settings." + itemTag);
+            log.Info(String.Format("Select item {0}", itemTag));
+
+            Type itemPage = Type.GetType("Notebook_L.Settings." + itemTag + "Page");
             Frame_Settings.Navigate(itemPage);
         }
     }

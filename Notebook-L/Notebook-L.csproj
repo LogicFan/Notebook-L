@@ -119,17 +119,20 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings\About.xaml.cs">
-      <DependentUpon>About.xaml</DependentUpon>
+    <Compile Include="FileSystem\Document.cs" />
+    <Compile Include="FileSystem\Notebook.cs" />
+    <Compile Include="FileSystem\Folder.cs" />
+    <Compile Include="Settings\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings\Accounts.xaml.cs">
-      <DependentUpon>Accounts.xaml</DependentUpon>
+    <Compile Include="Settings\AccountsPage.xaml.cs">
+      <DependentUpon>AccountsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\Inputs.xaml.cs">
       <DependentUpon>Inputs.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings\Notebooks.xaml.cs">
-      <DependentUpon>Notebooks.xaml</DependentUpon>
+    <Compile Include="Settings\NotebooksPage.xaml.cs">
+      <DependentUpon>NotebooksPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -169,11 +172,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Settings\About.xaml">
+    <Page Include="Settings\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings\Accounts.xaml">
+    <Page Include="Settings\AccountsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -181,7 +184,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings\Notebooks.xaml">
+    <Page Include="Settings\NotebooksPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

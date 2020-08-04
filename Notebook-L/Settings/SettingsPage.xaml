@@ -9,23 +9,39 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
+    <Page.Resources>
+        <Style TargetType="SymbolIcon">
+            <Setter Property="Width" Value="48"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
+
     <Grid>
-        <StackPanel Orientation="Horizontal">
-            <ListBox Name="ListBox_Menu" 
-                     Background="Transparent"
-                     SelectionChanged="ListBox_SelectionChanged"
-                     Width="48">
-                <SymbolIcon Symbol="Library"   Tag="Notebooks" Width="48" HorizontalAlignment="Center"/>
-                <SymbolIcon Symbol="Account"   Tag="Accounts"  Width="48" HorizontalAlignment="Center"/>
-                <SymbolIcon Symbol="Keyboard"  Tag="Inputs"    Width="48" HorizontalAlignment="Center"/>
-                <SymbolIcon Symbol="Preview"   Tag="Templates" Width="48" HorizontalAlignment="Center"/>
-                <SymbolIcon Symbol="Important" Tag="About"     Width="48" HorizontalAlignment="Center"/>
-            </ListBox>
-            <Line Y2="1" 
-                  Stretch="Fill"
-                  HorizontalAlignment="Right"
-                  Stroke="{ThemeResource SystemChromeMediumColor}"/>
-            <Frame x:Name="Frame_Settings"/>
-        </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="48"/>
+            <ColumnDefinition Width="16"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <ListBox Name="ListBox_Menu" 
+                 Background="Transparent"
+                 Loaded="ListBox_Loaded"
+                 SelectionChanged="ListBox_SelectionChanged"
+                 Grid.Column="0">
+            <SymbolIcon Symbol="Library"   Tag="Notebooks"/>
+            <SymbolIcon Symbol="Account"   Tag="Accounts"/>
+            <SymbolIcon Symbol="Keyboard"  Tag="Inputs"/>
+            <SymbolIcon Symbol="Preview"   Tag="Templates"/>
+            <SymbolIcon Symbol="Important" Tag="About"/>
+        </ListBox>
+
+        <Line Y2="1" 
+              Stretch="Fill"
+              HorizontalAlignment="Right"
+              Stroke="{ThemeResource SystemChromeMediumColor}"/>
+
+        <Frame x:Name="Frame_Settings" 
+               Grid.Column="2"
+               HorizontalAlignment="Stretch"/>
     </Grid>
 </Page>
