@@ -18,7 +18,13 @@ namespace Notebook_L.Settings
 
         private void ListBox_Loaded(object sender, RoutedEventArgs e)
         {
-            Frame_Settings.Navigate(typeof(NotebooksPage));
+            log.Info("ListBox_Loaded");
+
+            if (Frame_Settings.SourcePageType == null)
+            {
+                log.Info("Empty page, navigate to NotebooksPage");
+                Frame_Settings.Navigate(typeof(NotebooksPage));
+            }
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
