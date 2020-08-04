@@ -119,9 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FileSystem\Document.cs" />
     <Compile Include="FileSystem\Notebook.cs" />
-    <Compile Include="FileSystem\Folder.cs" />
     <Compile Include="Settings\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>

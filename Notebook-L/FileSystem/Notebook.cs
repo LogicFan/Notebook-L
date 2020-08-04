@@ -23,16 +23,5 @@ namespace Notebook_L.FileSystem
         public String Path { get; set; }
 
         public String UIPath => Source.ToString("G") + " - " + Path;
-
-        public IFolder GetRootFolder()
-        {
-            if (Source == SourceType.Local)
-            {
-                throw new NotImplementedException();
-            } else
-            {
-                throw new NotImplementedException();
-            }
-        }
     }
 }
