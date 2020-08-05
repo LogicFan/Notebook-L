@@ -3,18 +3,208 @@
 \usepackage{tikz}
 \usepackage{tikz-uml}
 
+% 150 140 120 90 60
+
 \begin{document}
+\tikzumlset{font=\small\ttfamily}
+
 \begin{tikzpicture}
+\umlsimpleclass[type=xaml, x=+0, y=+0]
+{MainPage}
+
+\umlsimpleclass[type=xaml, x=+4, y=-2]
+{HomePage}
+
+\begin{umlpackage}[x=+0, y=-2]{Settings}
+    \umlsimpleclass[type=xaml, x=+0, y=0]
+    {SettingsPage}
+
+    \umlsimpleclass[type=xaml, x=+0, y=-2]
+    {NotebooksPage}
+
+    \umlsimpleclass[type=xaml, x=-4, y=-2]
+    {AccountsPage}
+
+    \umlsimpleclass[type=xaml, x=-8, y=-2]
+    {InputsPage}
+
+    \umlsimpleclass[type=xaml, x=-12, y=-2]
+    {TemplatesPage}
+
+    \umlsimpleclass[type=xaml, x=-16, y=-2]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+    {AboutPage}
+
+    \umlsimpleclass[type=xaml, x=+0, y=-4]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+    {CreateNotebookPage}
+
+    \umlsimpleclass[type=xaml, x=-4, y=-4]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+    {ImportNotebookPage}
+
+    \umlclass[type=static, x=-24, y=0]
+    {Settings S}
+    {
+        \umlstatic{+Notebooks: ObservableCollection<Notebook.Notebook>}   \\
+        \umlstatic{+Accounts: ObservableCollection<Account.Account>}     \\
+    }
+    {}
+
+    \umlcompo[geometry=|-|]{SettingsPage}{NotebooksPage}
+    \umlcompo[geometry=|-|]{SettingsPage}{AccountsPage}
+    \umlcompo[geometry=|-|]{SettingsPage}{InputsPage}
+    \umlcompo[geometry=|-|]{SettingsPage}{TemplatesPage}
+    \umlcompo[geometry=|-|]{SettingsPage}{AboutPage}
+
+    \umlassoc[geometry=|-|, arg1=Navigate]{NotebooksPage}{CreateNotebookPage}
+    \umlassoc[geometry=|-|, arg1=Navigate]{NotebooksPage}{ImportNotebookPage}
+
+    \umldep[geometry=-|-]{SettingsPage}{Settings S}
+\end{umlpackage}
+
+\begin{umlpackage}[x=-20, y=-36]{Account}
+    \umlclass[x=+0, y=+0, name=AAcount]
+    {Account A}
+    {
+        +ViewName: String                 \\
+        +ViewType: String                 \\
+    }{
+        +Account(data: Serializable.Account)
+    }
+\end{umlpackage}
+
+\begin{umlpackage}[x=+0, y=-40]{Serializable}
+    \umlclass[type=struct, x=+0, y=+0, name=SAcount]
+    {Notebook S}
+    {
+        +Path: String \\
+        +Name: String \\
+        +SourceName: String
+    }
+    {}
+
+    \umlnote[x=+4, y=+0, width=3cm]{Notebook S}{
+        SourceName can be either Account.Name or "Local"
+    }
+
+    \umlclass[type=struct, x=-20, y=+0]
+    {Account S}
+    {
+        +Name: String \\
+        +Source: Account.SourceType \\
+        +Credential: String
+    }
+    {}
+
+    \umlclass[type=enum, x=-20, y=-4]
+    {Account::SourceType}
+    {
+        OneDrive, \\
+        GoogleDrive, \\
+        iCloudDrive, \\
+        DropBox
+    }
+    {}
+
+    \umlaggreg[geometry=|-|]{Account::SourceType}{Account}
+\end{umlpackage}
+
+\begin{umlpackage}[x=-20, y=-32]{FileSystem}
+    \umlclass[type=interface, x=+0, y=+0]
+    {IFileSystem}
+    {
+        +AccountName: String
+    }
+    {
+        +GetDirectory(path: String): IDirectory \\
+        +GetFile(path: String): IFile
+    }
+
+    \umlclass[type=interface, x=+12, y=+4]
+    {IDirectory}
+    {
+        +Name: String
+    }
+    {
+        +GetDirectories(): IEnumerable<IDirectory> \\
+        +GetFiles(): IEnumerable<IFile>
+    }
+
+    \umlclass[type=interface, x=+0, y=+4]
+    {IFile}
+    {
+        +Name: String
+    }
+    {
+        +GetStream(): Stream \\
+    }
+
+    \umlclass[type=static, x=-12, y=+0]
+    {FileSystemFactory}
+    {
+        \umlstatic{+FileSystems: IEnumerable<IFileSystem>}
+    }
+    {
+        \umlstatic{+CreateFileSystem(Account: Account.Account): IFileSystem}
+    }
+
+    \umldep{IFileSystem}{FileSystemFactory}
+    \umldep{IFile}{IFileSystem}
+    \umldep[geometry=|-]{IDirectory}{IFileSystem}
+\end{umlpackage}
+
+\begin{umlpackage}[x=+0, y=-24]{Notebook}
+    \umlclass[x=+0, y=+0]
+    {Notebook N}
+    {
+        +Name: String
+    }
+    {
+        +Notebook(data: Serializable.Notebook) \\
+        +GetFolders(): IEnumerable<Folder> \\
+        +GetDocuments(): IEnumerable<Document>
+    }
+
+    \umlclass[x=+8, y=+0]
+    {Folder}
+    {
+        +Name: String \\
+        +Parent: Folder
+    }
+    {
+        +GetFolders(): IEnumerable<Folder> \\
+        +GetDocuments(): IEnumerable<Document>
+    }
+
+    \umlclass[x=+8, y=+4]
+    {Document N}
+    {
+        +Name: String
+    }
+    {
+        ...
+    }
+
+    \umlcompo{Notebook N}{Folder}
+\end{umlpackage}
+
+\umlcompo[geometry=|-|]{MainPage}{SettingsPage}
+\umlcompo[geometry=|-|]{MainPage}{HomePage}
 
 
-    
-\umlclass{namespace.A}{
-    + n: uint \\
-    \umlstatic{- i: int} \\
-    \# r: const float
-}{
-    + setA(i: int) : void \\
-    \umlvirt{\# getA() : A}
-}
+\umlaggreg[geometry=|-]{Settings}{Account A}
+\umlaggreg[geometry=|-|]{Settings}{Notebook N}
+
+\umlcompo{IFileSystem}{Account A}
+\umlcompo{Account A}{Account S}
+\umlcompo[geometry=|-]{Notebook N}{IDirectory}
+\umlcompo[geometry=|-]{Notebook N}{Notebook S}
+\umldep[geometry=-|]{Notebook N}{FileSystemFactory}
+
+
+\umlsimpleclass[type=xaml, x=+4, y=-4]
+{Document::DocumentPage}
+
+\umlassoc[arg1=Navigate]{HomePage}{Document::DocumentPage}
+
+
 \end{tikzpicture}
 \end{document}
