@@ -76,8 +76,8 @@
     \umlclass[type=struct, x=+0, y=+0, name=SAcount]
     {Notebook S}
     {
-        +Path: String \\
         +Name: String \\
+        +Path: String \\
         +SourceName: String
     }
     {}
@@ -87,16 +87,16 @@
     }
 
     \umlclass[type=struct, x=-20, y=+0]
-    {Account S}
+    {Location S}
     {
         +Name: String \\
-        +Source: Account.SourceType \\
-        +Credential: String
+        +Credential: String \\
+        +Source: Location.SourceType
     }
     {}
 
     \umlclass[type=enum, x=-20, y=-4]
-    {Account::SourceType}
+    {Location::SourceType}
     {
         OneDrive, \\
         GoogleDrive, \\
@@ -105,7 +105,7 @@
     }
     {}
 
-    \umlaggreg[geometry=|-|]{Account::SourceType}{Account}
+    \umlaggreg[geometry=|-|]{Location::SourceType}{Location S}
 \end{umlpackage}
 
 \begin{umlpackage}[x=-20, y=-32]{FileSystem}
@@ -195,7 +195,7 @@
 \umlaggreg[geometry=|-|]{Settings}{Notebook N}
 
 \umlcompo{IFileSystem}{Account A}
-\umlcompo{Account A}{Account S}
+\umlcompo{Account A}{Location S}
 \umlcompo[geometry=|-]{Notebook N}{IDirectory}
 \umlcompo[geometry=|-]{Notebook N}{Notebook S}
 \umldep[geometry=-|]{Notebook N}{FileSystemFactory}
