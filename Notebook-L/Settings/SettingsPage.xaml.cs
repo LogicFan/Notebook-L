@@ -16,27 +16,27 @@ namespace Notebook_L.Settings
             this.InitializeComponent();
         }
 
-        private void NavigationView_BackRequested(muxc.NavigationView sender, muxc.NavigationViewBackRequestedEventArgs args)
+        private void ListBox_Loaded(object sender, RoutedEventArgs e)
         {
-            
-        }
+            log.Info("ListBox_Loaded");
 
-        private void NavigationView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
-        {
-            muxc.NavigationViewItem selectedItem = args.SelectedItem as muxc.NavigationViewItem;
-            if (selectedItem != null)
+            ListBox listBox = sender as ListBox;
+            if (listBox.SelectedItem == null)
             {
-                string itemTag = selectedItem.Tag as string;
-                sender.Header = itemTag;
-                Type itemPage = Type.GetType("Notebook_L.Settings." + itemTag);
-                Frame_Settings.Navigate(itemPage);
+                listBox.SelectedItem = listBox.Items[0];
             }
         }
 
-        private void NavigationView_Loaded(object sender, RoutedEventArgs e)
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            muxc.NavigationView navigationView = sender as muxc.NavigationView;
-            navigationView.SelectedItem = navigationView.MenuItems[0];
+            log.Info("ListBox_SelectionChanged");
+
+            String itemTag = (e.AddedItems[0] as SymbolIcon).Tag as String;
+
+            log.Info(String.Format("Select item {0}", itemTag));
+
+            Type itemPage = Type.GetType("Notebook_L.Settings." + itemTag + "Page");
+            Frame_Settings.Navigate(itemPage);
         }
     }
 }
