@@ -167,7 +167,8 @@ namespace Notebook_L
                 for (Int32 i = 0; i < destTabItems.Count; i++)
                 {
                     TabViewItem tabViewItem = destTabItems[i] as TabViewItem;
-                    if (args.GetPosition(tabViewItem).X - tabViewItem.ActualWidth < 0)
+                    Double offset = args.GetPosition(tabViewItem).X - 0.5 * tabViewItem.ActualWidth;
+                    if (offset < 0)
                     {
                         index = i;
                         break;
