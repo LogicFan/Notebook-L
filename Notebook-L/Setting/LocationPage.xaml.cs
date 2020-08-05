@@ -26,5 +26,19 @@ namespace Notebook_L.Setting
         {
             this.InitializeComponent();
         }
+
+        private void ListView_Loaded(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ListView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+        {
+
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -3,7 +3,7 @@
 namespace Notebook_L.Serializable
 {
     [Serializable]
-    struct Account
+    struct Location
     {
         public enum SourceType
         {

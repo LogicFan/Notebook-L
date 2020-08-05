@@ -1,16 +1,16 @@
 ﻿using System;
 using Notebook_L;
 
-namespace Notebook_L.Account
+namespace Notebook_L.Location
 {
-    class Account
+    class Location
     {
-        public Serializable.Account Data { get; set; }
+        public Serializable.Location Data { get; set; }
 
         public String UIName => Data.Name;
         public String UISource => Data.Source.ToString("G");
 
-        public Account(Serializable.Account data)
+        public Location(Serializable.Location data)
         {
             this.Data = data;
         }

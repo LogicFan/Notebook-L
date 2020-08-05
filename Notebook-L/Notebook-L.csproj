@@ -116,12 +116,12 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Account\Account.cs" />
+    <Compile Include="Location\Location.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="FileSystem\Notebook.cs" />
-    <Compile Include="Serializable\Account.cs" />
+    <Compile Include="Serializable\Location.cs" />
     <Compile Include="Serializable\Notebook.cs" />
     <Compile Include="Setting\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
