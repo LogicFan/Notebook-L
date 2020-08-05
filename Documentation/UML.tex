@@ -44,9 +44,11 @@
     {Settings S}
     {
         \umlstatic{+Notebooks: ObservableCollection<Notebook.Notebook>}   \\
-        \umlstatic{+Accounts: ObservableCollection<Account.Account>}     \\
+        \umlstatic{+Locations: ObservableCollection<Location.Location>}   \\
     }
-    {}
+    {
+        \umlstatic{+ObservableCollection\_Locations\_CollectionChanged(...)}
+    }
 
     \umlcompo[geometry=|-|]{SettingsPage}{NotebooksPage}
     \umlcompo[geometry=|-|]{SettingsPage}{AccountsPage}
@@ -191,8 +193,8 @@
 \umlcompo[geometry=|-|]{MainPage}{HomePage}
 
 
-\umlaggreg[geometry=|-]{Settings}{Location L}
-\umlaggreg[geometry=|-|]{Settings}{Notebook N}
+\umlaggreg[geometry=|-]{Settings S}{Location L}
+\umlaggreg[geometry=|-|]{Settings S}{Notebook N}
 
 \umlcompo{IFileSystem}{Location L}
 \umlcompo{Location L}{Location S}
