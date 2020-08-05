@@ -114,7 +114,7 @@
     \umlclass[type=interface, x=+0, y=+0]
     {IFileSystem}
     {
-        +AccountName: String
+        +Name: String
     }
     {
         +GetDirectory(path: String): IDirectory \\
@@ -124,21 +124,19 @@
     \umlclass[type=interface, x=+12, y=+4]
     {IDirectory}
     {
-        +Name: String
+        +Name: String \\
+        +Directories: IEnumerable<IDirectory> \\
+        +Files: IEnumerable<IFile>
     }
-    {
-        +GetDirectories(): IEnumerable<IDirectory> \\
-        +GetFiles(): IEnumerable<IFile>
-    }
+    {}
 
     \umlclass[type=interface, x=+0, y=+4]
     {IFile}
     {
-        +Name: String
+        +Name: String \\
+        +Content: Stream
     }
-    {
-        +GetStream(): Stream \\
-    }
+    {}
 
     \umlclass[type=static, x=-12, y=+0]
     {FileSystemFactory}
