@@ -27,7 +27,8 @@
             <Button Background="Transparent" 
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Left"
-                    VerticalAlignment="Stretch">
+                    VerticalAlignment="Stretch"
+                    Click="Button_Add_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>

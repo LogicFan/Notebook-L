@@ -17,7 +17,7 @@ namespace Notebook_L.Setting
         private void ListView_Loaded(object sender, RoutedEventArgs e)
         {
             ListView listView = sender as ListView;
-            ObservableCollection<Notebook> notebooks = Settings.Notebooks;
+            ObservableCollection<Notebook> notebooks = Setting.Notebooks;
 
             for (Int32 i = 0; i < 100; i++)
             {

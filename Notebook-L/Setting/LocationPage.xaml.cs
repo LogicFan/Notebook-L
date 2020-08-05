@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -29,6 +19,10 @@ namespace Notebook_L.Setting
 
         private void ListView_Loaded(object sender, RoutedEventArgs e)
         {
+            ListView listView = sender as ListView;
+            ObservableCollection<Location.Location> locations = Setting.Locations;
+
+            listView.ItemsSource = locations;
         }
 
         private void ListView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
@@ -39,6 +33,22 @@ namespace Notebook_L.Setting
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void Button_Add_Click(object sender, RoutedEventArgs e)
+        {
+            #region TestCode
+            Random random = new Random();
+
+            Setting.AddLocation(new Serializable.Location
+            {
+                Name = "Item " + random.Next().ToString(),
+                Source = Serializable.Location.SourceType.OneDrive
+            });
+            #endregion
+
+            ObservableCollection<Location.Location> locations = Setting.Locations;
+            this.ListView.ItemsSource = locations;
         }
     }
 }
