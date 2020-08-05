@@ -60,15 +60,15 @@
     \umldep[geometry=-|-]{SettingsPage}{Settings S}
 \end{umlpackage}
 
-\begin{umlpackage}[x=-20, y=-36]{Account}
-    \umlclass[x=+0, y=+0, name=AAcount]
-    {Account A}
+\begin{umlpackage}[x=-20, y=-36]{Location}
+    \umlclass[x=+0, y=+0]
+    {Location L}
     {
-        +Data: Serializable.Account \\
+        +Data: Serializable.Location    \\
         +UIName: String                 \\
-        +UIType: String                 \\
+        +UISource: String               \\
     }{
-        +Account(data: Serializable.Account)
+        +Account(data: Serializable.Location)
     }
 \end{umlpackage}
 
@@ -191,11 +191,11 @@
 \umlcompo[geometry=|-|]{MainPage}{HomePage}
 
 
-\umlaggreg[geometry=|-]{Settings}{Account A}
+\umlaggreg[geometry=|-]{Settings}{Location L}
 \umlaggreg[geometry=|-|]{Settings}{Notebook N}
 
-\umlcompo{IFileSystem}{Account A}
-\umlcompo{Account A}{Location S}
+\umlcompo{IFileSystem}{Location L}
+\umlcompo{Location L}{Location S}
 \umlcompo[geometry=|-]{Notebook N}{IDirectory}
 \umlcompo[geometry=|-]{Notebook N}{Notebook S}
 \umldep[geometry=-|]{Notebook N}{FileSystemFactory}
