@@ -1,7 +1,7 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Notebook_L.Settings
+namespace Notebook_L.Setting
 {
     public sealed partial class AboutPage : Page
     {

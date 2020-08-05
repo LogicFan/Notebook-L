@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.Storage;
 
-namespace Notebook_L.Settings
+namespace Notebook_L.Setting
 {
     static class Settings
     {

@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Controls;
 using Notebook_L.FileSystem;
 using System.IO;
 
-namespace Notebook_L.Settings
+namespace Notebook_L.Setting
 {
     public sealed partial class NotebooksPage : Page
     {

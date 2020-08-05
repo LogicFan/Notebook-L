@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Notebook_L.Settings.SettingsPage"
+    x:Class="Notebook_L.Setting.SettingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Notebook_L"
@@ -28,10 +28,10 @@
                  Loaded="ListBox_Loaded"
                  SelectionChanged="ListBox_SelectionChanged"
                  Grid.Column="0">
-            <SymbolIcon Symbol="Library"   Tag="Notebooks"/>
-            <SymbolIcon Symbol="Account"   Tag="Accounts"/>
-            <SymbolIcon Symbol="Keyboard"  Tag="Inputs"/>
-            <SymbolIcon Symbol="Preview"   Tag="Templates"/>
+            <SymbolIcon Symbol="Library"   Tag="Notebook"/>
+            <SymbolIcon Symbol="Globe"     Tag="Location"/>
+            <SymbolIcon Symbol="Keyboard"  Tag="Input"/>
+            <SymbolIcon Symbol="Preview"   Tag="Template"/>
             <SymbolIcon Symbol="Important" Tag="About"/>
         </ListBox>
 

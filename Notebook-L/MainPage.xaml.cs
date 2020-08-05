@@ -5,7 +5,7 @@ using Windows.ApplicationModel.DataTransfer;
 using muxc = Microsoft.UI.Xaml.Controls;
 using Windows.UI.ViewManagement;
 using Microsoft.UI.Xaml.Controls;
-using Notebook_L.Settings;
+using Notebook_L.Setting;
 using System.Collections.Generic;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml.Hosting;
@@ -218,7 +218,7 @@ namespace Notebook_L
             };
 
             tabViewItem.Content = new Frame();
-            (tabViewItem.Content as Frame).Navigate(typeof(SettingsPage));
+            (tabViewItem.Content as Frame).Navigate(typeof(SettingPage));
 
             return tabViewItem;
         }

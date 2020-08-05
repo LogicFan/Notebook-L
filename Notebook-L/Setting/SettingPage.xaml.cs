@@ -5,13 +5,13 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
 
-namespace Notebook_L.Settings
+namespace Notebook_L.Setting
 {
-    public sealed partial class SettingsPage : Page
+    public sealed partial class SettingPage : Page
     {
-        private readonly ILogger log = LogManagerFactory.DefaultLogManager.GetLogger<SettingsPage>();
+        private readonly ILogger log = LogManagerFactory.DefaultLogManager.GetLogger<SettingPage>();
 
-        public SettingsPage()
+        public SettingPage()
         {
             this.InitializeComponent();
         }
@@ -35,7 +35,7 @@ namespace Notebook_L.Settings
 
             log.Info(String.Format("Select item {0}", itemTag));
 
-            Type itemPage = Type.GetType("Notebook_L.Settings." + itemTag + "Page");
+            Type itemPage = Type.GetType("Notebook_L.Setting." + itemTag + "Page");
             Frame_Settings.Navigate(itemPage);
         }
     }
