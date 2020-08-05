@@ -5,7 +5,7 @@ namespace Notebook_L.Location
 {
     class Location
     {
-        public Serializable.Location Data { get; set; }
+        public Serializable.Location Data { get; }
 
         public String UIName => Data.Name;
         public String UISource => Data.Source.ToString("G");

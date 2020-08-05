@@ -3,8 +3,8 @@ using Notebook_L.FileSystem;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Notebook_L;
 using Windows.Storage;
+using System.Collections.Specialized;
 
 namespace Notebook_L.Setting
 {
@@ -17,37 +17,27 @@ namespace Notebook_L.Setting
         #endregion
 
         #region BaseContainer
-        private static ApplicationDataContainer data = ApplicationData.Current.LocalSettings
-            .CreateContainer(ContainerId, ApplicationDataCreateDisposition.Always);
+        private static readonly ApplicationDataContainer data = ApplicationData.Current.LocalSettings.CreateContainer(ContainerId, ApplicationDataCreateDisposition.Always);
         #endregion
 
         #region Locations
-        private static Serializable.Location[] SerializableLocations
+        public static void ObservableCollection_Locations_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
-            get
-            {
-                String str = data.Values[LocationsId] as String;
-                return String.IsNullOrEmpty(str) ? new Serializable.Location[] { } : JsonConvert.DeserializeObject<Serializable.Location[]>(str);
-            }
+            ObservableCollection<Location.Location> locations = sender as ObservableCollection<Location.Location>;
+            Serializable.Location[] array = locations.Select(e => e.Data).ToArray();
+            Setting.data.Values[LocationsId] = JsonConvert.SerializeObject(array);
         }
 
         public static ObservableCollection<Location.Location> Locations
         {
-            get => new ObservableCollection<Location.Location>(SerializableLocations.Select(e => new Location.Location(e)));
-        }
-
-        public static void AddLocation(Serializable.Location location)
-        {
-            Serializable.Location[] locations = SerializableLocations;
-            String str = JsonConvert.SerializeObject(locations.Append(location).ToArray());
-            data.Values[LocationsId] = str;
-        }
-
-        public static void RemoveLocation(Serializable.Location location)
-        {
-            Serializable.Location[] locations = SerializableLocations;
-            String str = JsonConvert.SerializeObject(locations.Where(e => e.Name != location.Name).ToArray());
-            data.Values[LocationsId] = str;
+            get
+            {
+                String str = data.Values[LocationsId] as String;
+                Serializable.Location[] array = String.IsNullOrEmpty(str) ? new Serializable.Location[] { } : JsonConvert.DeserializeObject<Serializable.Location[]>(str);
+                ObservableCollection<Location.Location> locations = new ObservableCollection<Location.Location>(array.Select(e => new Location.Location(e)));
+                locations.CollectionChanged += ObservableCollection_Locations_CollectionChanged;
+                return locations;
+            }
         }
         #endregion Locations
 

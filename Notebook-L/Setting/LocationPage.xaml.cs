@@ -3,13 +3,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using System.Collections.ObjectModel;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace Notebook_L.Setting
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class LocationPage : Page
     {
         public LocationPage()
@@ -39,16 +34,15 @@ namespace Notebook_L.Setting
         {
             #region TestCode
             Random random = new Random();
+            ObservableCollection<Location.Location> locations = this.ListView.ItemsSource as ObservableCollection<Location.Location>;
 
-            Setting.AddLocation(new Serializable.Location
+            locations.Add(new Location.Location(new Serializable.Location
             {
                 Name = "Item " + random.Next().ToString(),
+                Credential = "p9eflkdsjaoij43p1foij423jf",
                 Source = Serializable.Location.SourceType.OneDrive
-            });
+            }));
             #endregion
-
-            ObservableCollection<Location.Location> locations = Setting.Locations;
-            this.ListView.ItemsSource = locations;
         }
     }
 }
