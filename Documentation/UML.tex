@@ -64,8 +64,9 @@
     \umlclass[x=+0, y=+0, name=AAcount]
     {Account A}
     {
-        +ViewName: String                 \\
-        +ViewType: String                 \\
+        +Data: Serializable.Account \\
+        +UIName: String                 \\
+        +UIType: String                 \\
     }{
         +Account(data: Serializable.Account)
     }
