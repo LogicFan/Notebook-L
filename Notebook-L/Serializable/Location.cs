@@ -10,7 +10,7 @@ namespace Notebook_L.Serializable
             OneDrive,
             GoogleDrive,
             iCloudDrive,
-            DropBox
+            Dropbox
         }
 
         public String Name;
