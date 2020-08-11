@@ -350,4 +350,7 @@ MigrationBackup/
 .ionide/
 
 # Ignore tex build file
-Documentation/build
+Documentation/build/**.aux
+Documentation/build/**.fls
+Documentation/build/**.gz
+Documentation/build/**.fdb_latexmk
