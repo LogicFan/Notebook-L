@@ -1,4 +1,5 @@
 ﻿using MetroLog;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using Windows.ApplicationModel.DataTransfer;
@@ -35,6 +36,12 @@ namespace Notebook_L
             {
                 Log.Info("Remove this from Instances");
                 Instances.Remove(this);
+
+                Log.Info("Trigger OnNavigatingFrom for each page.");
+                foreach(muxc.TabViewItem tabViewItem in TabView_Main.TabItems)
+                {
+                    (tabViewItem.Content as Frame).Navigate(typeof(BlankPage));
+                }
             };
         }
 
@@ -52,6 +59,12 @@ namespace Notebook_L
             {
                 Log.Info("Remove this from Instances");
                 Instances.Remove(this);
+
+                Log.Info("Trigger OnNavigatingFrom for each page.");
+                foreach (muxc.TabViewItem tabViewItem in TabView_Main.TabItems)
+                {
+                    (tabViewItem.Content as Frame).Navigate(typeof(BlankPage));
+                }
             };
         }
         #endregion
@@ -148,6 +161,7 @@ namespace Notebook_L
         {
             Log.Info("TabView_Main_TabCloseRequested");
 
+            (args.Tab.Content as Frame).Navigate(typeof(BlankPage));
             sender.TabItems.Remove(args.Tab);
         }
 
