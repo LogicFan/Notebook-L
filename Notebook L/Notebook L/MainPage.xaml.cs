@@ -1,7 +1,9 @@
 ﻿using MetroLog;
 using Microsoft.UI.Xaml.Controls;
+using Notebook_L.Setting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation.Collections;
 using Windows.UI.ViewManagement;
@@ -20,7 +22,9 @@ namespace Notebook_L
         // The set of instances of this class
         private static readonly ISet<MainPage> Instances = new HashSet<MainPage>();
         private readonly AppWindow Window;
-        private readonly Boolean InitialTab;
+
+        public Boolean InitialTab { get; set; }
+        public Action TryShow { get; }
 
         #region Constructor
         public MainPage() : this(null, true) { }
@@ -54,29 +58,55 @@ namespace Notebook_L
                 {
                     action();
                 };
+
+                TryShow = async () =>
+                {
+                    Int32 id = ApplicationView.GetForCurrentView().Id;
+                    await ApplicationViewSwitcher.TryShowAsStandaloneAsync(id);
+                };
             }
             else
             {
-                Window.Closed += (AppWindow win, AppWindowClosedEventArgs args) =>
+                window.Closed += (AppWindow win, AppWindowClosedEventArgs args) =>
                 {
                     action();
+                };
+
+                TryShow = async () =>
+                {
+                    await window.TryShowAsync();
                 };
             }
         }
         #endregion
 
-        #region Tab ID
+        #region TabViewItem
         public const String HomePageTabId = "HomePage-BvlzpOeJ";
         public const String SettingPageTabId = "SettingPage-fkXRAjq1";
         public static String DocumentPageTabId(String id)
         {
             return "DocumentPage-" + id;
         }
-
         public const String TabDataIdentifier = "iLoj4PTo";
-        #endregion
 
-        #region TabViewItem
+        public static IEnumerable<TabViewItem> TabItems => Instances.SelectMany(e => e.TabView_Main.TabItems).Select(e => e as TabViewItem);
+
+        public static Tuple<MainPage, TabViewItem> SearchTab(String tabId)
+        {
+            foreach (MainPage page in MainPage.Instances)
+            {
+                foreach (TabViewItem item in page.TabView_Main.TabItems)
+                {
+                    if (item.Tag as String == tabId)
+                    {
+                        Log.Info(String.Format("Find TabViewItem with Tag = {0}", tabId));
+                        return new Tuple<MainPage, TabViewItem>(page, item);
+                    }
+                }
+            }
+            return null;
+        }
+
         private muxc.TabViewItem CreateHomePageTab()
         {
             muxc.TabViewItem tabViewItem = new muxc.TabViewItem
@@ -108,7 +138,7 @@ namespace Notebook_L
             };
 
             tabViewItem.Content = new Frame();
-            (tabViewItem.Content as Frame).Navigate(typeof(BlankPage));
+            (tabViewItem.Content as Frame).Navigate(typeof(SettingPage));
 
             return tabViewItem;
         }
@@ -246,9 +276,23 @@ namespace Notebook_L
         }
         #endregion
 
+        #region EventHandler Button_Setting
         private void Button_Setting_Click(object sender, RoutedEventArgs args)
         {
-            throw new NotImplementedException();
+            Tuple<MainPage, TabViewItem> tuple = SearchTab(SettingPageTabId);
+
+            if (tuple != null)
+            {
+                tuple.Item1.TryShow();
+                tuple.Item1.TabView_Main.SelectedItem = tuple.Item2;
+            }
+            else
+            {
+                muxc.TabViewItem tabViewItem = CreateSettingPageTab();
+                TabView_Main.TabItems.Add(tabViewItem);
+                TabView_Main.SelectedItem = tabViewItem;
+            }
         }
+        #endregion
     }
 }
