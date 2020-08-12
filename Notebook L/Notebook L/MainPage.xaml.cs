@@ -81,7 +81,7 @@ namespace Notebook_L
             };
 
             tabViewItem.Content = new Frame();
-            (tabViewItem.Content as Frame).Navigate(typeof(BlankPage));
+            (tabViewItem.Content as Frame).Navigate(typeof(HomePage));
 
             return tabViewItem;
         }
