@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Notebook_L.FileSystem
 {
@@ -6,7 +7,7 @@ namespace Notebook_L.FileSystem
     {       
         String Name { get; }
 
-        IDirectory GetDirectory(String path);
-        IFile GetFile(String path);
+        Task<IDirectory> GetDirectory(String path);
+        Task<IFile> GetFile(String path);
     }
 }

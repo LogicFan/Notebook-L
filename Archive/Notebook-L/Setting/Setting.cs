@@ -16,23 +16,19 @@ namespace Notebook_L.Setting
         private const String ValueNotebooksId = "Notebooks";
         #endregion
 
-        #region BaseContainer
-        private static readonly ApplicationDataContainer data = ApplicationData.Current.LocalSettings.CreateContainer(ContainerId, ApplicationDataCreateDisposition.Always);
-        #endregion
-
         #region Locations
         public static void ObservableCollection_Locations_CollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
             ObservableCollection<Location.Location> locations = sender as ObservableCollection<Location.Location>;
             Serializable.Location[] array = locations.Select(e => e.Data).ToArray();
-            Setting.data.Values[LocationsId] = JsonConvert.SerializeObject(array);
+            GlobalInfo.SettingContainer.Values[LocationsId] = JsonConvert.SerializeObject(array);
         }
 
         public static ObservableCollection<Location.Location> Locations
         {
             get
             {
-                String str = data.Values[LocationsId] as String;
+                String str = GlobalInfo.SettingContainer.Values[LocationsId] as String;
                 Serializable.Location[] array = String.IsNullOrEmpty(str) ? new Serializable.Location[] { } : JsonConvert.DeserializeObject<Serializable.Location[]>(str);
                 ObservableCollection<Location.Location> locations = new ObservableCollection<Location.Location>(array.Select(e => new Location.Location(e)));
                 locations.CollectionChanged += ObservableCollection_Locations_CollectionChanged;
@@ -45,7 +41,7 @@ namespace Notebook_L.Setting
         {
             get
             {
-                String str = data.Values[ValueNotebooksId] as String;
+                String str = GlobalInfo.SettingContainer.Values[ValueNotebooksId] as String;
                 if (String.IsNullOrEmpty(str))
                 {
                     return new ObservableCollection<Notebook>();
@@ -57,7 +53,7 @@ namespace Notebook_L.Setting
             {
                 Notebook[] array = value.ToArray();
                 String str = JsonConvert.SerializeObject(array);
-                data.Values[ValueNotebooksId] = str;
+                GlobalInfo.SettingContainer.Values[ValueNotebooksId] = str;
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetroLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,8 +7,6 @@ namespace Notebook_L.FileSystem
 {
     static class FileSystemFactory
     {
-        public const String LocalFileSystemName = "23i409()&(*$#&&(*^#@mlkjrewlgvlknsaljewqljflkaP(P(HLN#Yo|}{|}&%&^";
-
         public static IEnumerable<IFileSystem> FileSystems
         {
             get => Setting.Setting.Locations.Select(e => CreateFileSystem(e)).Append(CreateFileSystem(null));
@@ -17,7 +16,7 @@ namespace Notebook_L.FileSystem
         {
             if (location == null)
             {
-                return new LocalFileSystem(FileSystemFactory.LocalFileSystemName);
+                return new LocalFileSystem(GlobalInfo.LocalFileSystemName);
             }
 
             switch (location.Data.Source)

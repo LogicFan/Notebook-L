@@ -51,7 +51,7 @@
     \umlcompo[geometry=|-|]{SettingPage}{TemplatePage}
     \umlcompo[geometry=|-|]{SettingPage}{AboutPage}
 
-    \umlcompo[geometry=|-|]{AccountPage}{AddAccountPage}
+    \umlassoc[arg1=Nav]{AccountPage}{AddAccountPage}
 
     \umldep[geometry=-|-]{SettingPage}{Setting S}
 \end{umlpackage}
@@ -116,8 +116,8 @@
     }
     {
         +GetParent(): IFolder \\
-        +Download(): StorageFile \\
-        +Upload(): void \\
+        +Download(path: StorageFolder): StorageFile \\
+        +Update(): void \\
         +Delete(): void
     }
 
@@ -126,7 +126,7 @@
     {}
     {
         \umlstatic{+CreateFileSystem(account: Serializable.Account): IFileSystem} \\
-        \umlstatic{+CopyTo(source: IFile, target: IFile): void} \\
+        \umlstatic{+CopyTo(source: IFile, target: IFolder): void} \\
         \umlstatic{+CopyTo(source: IFolder, target: IFolder): void} \\
         \umlstatic{+MoveTo(source: IFile, target: IFolder): void} \\
         \umlstatic{+MoveTo(source: IFolder, target: IFolder): void} \\
@@ -164,7 +164,7 @@
 \umlsimpleclass[type=xaml, x=+4, y=-4]
 {Document::DocumentPage}
 
-\umlassoc[arg1=Navigate]{HomePage}{Document::DocumentPage}
+\umlassoc[arg1=Nav]{HomePage}{Document::DocumentPage}
 
 
 \end{tikzpicture}

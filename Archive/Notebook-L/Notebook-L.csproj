@@ -121,6 +121,8 @@
     <Compile Include="FileSystem\IFile.cs" />
     <Compile Include="FileSystem\IFileSystem.cs" />
     <Compile Include="FileSystem\LocalFileSystem.cs" />
+    <Compile Include="FileSystem\Util.cs" />
+    <Compile Include="GlobalInfo.cs" />
     <Compile Include="Location\Location.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

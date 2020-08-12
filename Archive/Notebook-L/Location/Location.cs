@@ -14,8 +14,13 @@ namespace Notebook_L.Location
 
         public Location(Serializable.Location data)
         {
-            log.Info(String.Format("data.Name = {0}, data.Source = {1}", data.Name, data.Source.ToString("G")));
+            log.Info(String.Format("Create object, Name = {0}", data.Name));
             this.Data = data;
+        }
+
+        public override String ToString()
+        {
+            return String.Format("Location(Name = {0}, Source = {1})", UIName, UISource);
         }
     }
 }
