@@ -19,7 +19,7 @@ namespace Notebook_L
     sealed partial class App : Application
     {
         // The logger for the class
-        static private ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<App>();
+        private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<App>();
 
         public App()
         {
@@ -87,14 +87,12 @@ namespace Notebook_L
         private void OnEnteredBackground(object sender, EnteredBackgroundEventArgs args)
         {
             Log.Info(message: String.Format("OnEnteredBackground"));
+            // TODO: Save all tabs
         }
 
         private void OnSuspending(object sender, SuspendingEventArgs args)
         {
             Log.Info(message: String.Format("OnSuspending"));
-            var deferral = args.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
-            deferral.Complete();
         }
 
         private void OnResuming(object sender, object args)
@@ -105,6 +103,7 @@ namespace Notebook_L
         private void OnLeavingBackground(object sender, LeavingBackgroundEventArgs args)
         {
             Log.Info(message: String.Format("OnLeavingBackground"));
+            // TODO: Retrive all tabs and clear the cache
         }
     }
 }
