@@ -36,7 +36,7 @@ namespace Notebook_L
             InitialTab = initialTab;
             this.InitializeComponent();
 
-            Action action = () =>
+            void action()
             {
                 Log.Info("Remove this from Instances");
                 Instances.Remove(this);
@@ -44,9 +44,9 @@ namespace Notebook_L
                 Log.Info("Trigger OnNavigatingFrom for each page.");
                 foreach (muxc.TabViewItem tabViewItem in TabView_Main.TabItems)
                 {
-                    (tabViewItem.Content as Frame).Navigate(typeof(BlankPage));
+                    (tabViewItem.Content as Frame).GetNavigationState();
                 }
-            };
+            }
 
             if (window == null)
             {
@@ -157,7 +157,7 @@ namespace Notebook_L
         {
             Log.Info("TabView_Main_TabCloseRequested");
 
-            (args.Tab.Content as Frame).Navigate(typeof(BlankPage));
+            (args.Tab.Content as Frame).GetNavigationState();
             sender.TabItems.Remove(args.Tab);
         }
 
