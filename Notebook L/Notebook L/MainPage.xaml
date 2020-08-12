@@ -5,10 +5,42 @@
     xmlns:local="using:Notebook_L"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <muxc:TabView x:Name="TabView_Main"
+                      AllowDropTabs="True"
+                      CanDragTabs="True"
+                      CanReorderTabs="True"
+                      Loaded="TabView_Main_Loaded"
+                      TabItemsChanged="TabView_Main_TabItemsChanged"
+                      AddTabButtonClick="TabView_Main_AddTabButtonClick" 
+                      TabCloseRequested="TabView_Main_TabCloseRequested"
+                      TabDroppedOutside="TabView_Main_TabDroppedOutside"
+                      TabStripDragOver="TabView_Main_TabStripDragOver"
+                      TabStripDrop="TabView_Main_TabStripDrop"
+                      TabDragStarting="TabView_Main_TabDragStarting" >
+        <muxc:TabView.TabStripHeader>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="8"/>
+                    <ColumnDefinition Width="32"/>
+                </Grid.ColumnDefinitions>
 
-    </Grid>
+                <Button x:Name="Button_Setting"
+                        Grid.Column="1"
+                        VerticalAlignment="Bottom"
+                        Background="Transparent"
+                        Height="32"
+                        Width="32"
+                        Padding="0"
+                        Click="Button_Setting_Click">
+                    <SymbolIcon Symbol="Setting"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"/>
+                </Button>
+            </Grid>
+        </muxc:TabView.TabStripHeader>
+    </muxc:TabView>
 </Page>
