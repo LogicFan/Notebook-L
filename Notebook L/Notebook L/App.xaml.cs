@@ -30,7 +30,7 @@ namespace Notebook_L
             // Logging some global information
             Log.Info(String.Format("The LocalFolder is {0}", ApplicationData.Current.LocalFolder.Path));
 
-            Log.Info(String.Format("Create object App @{0:X8}", this.GetHashCode()));
+            Log.Info(String.Format("Create object App@{0:X8}", this.GetHashCode()));
 
             this.InitializeComponent();
 

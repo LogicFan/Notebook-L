@@ -31,10 +31,11 @@ namespace Notebook_L
 
         public MainPage(AppWindow window, Boolean initialTab)
         {
-            Log.Info(String.Format("Create object MainPage, initialTab = {0}", initialTab));
+            Log.Info(String.Format("Create object MainPage@{0:X8}, window = AppWindow@{1:X8}, initialTab = {2}",
+                this.GetHashCode(), window == null ? 0 : window.GetHashCode(), initialTab));
 
-            Log.Info("Add this into Instances");
             Instances.Add(this);
+            Log.Info(String.Format("Add MainPage@{0:X8} into Instances", this.GetHashCode()));
 
             Window = window;
             InitialTab = initialTab;
@@ -42,10 +43,10 @@ namespace Notebook_L
 
             void action()
             {
-                Log.Info("Remove this from Instances");
                 Instances.Remove(this);
+                Log.Info(String.Format("Remove MainPage@{0:X8} from Instances", this.GetHashCode()));
 
-                Log.Info("Trigger OnNavigatingFrom for each page.");
+                Log.Info(String.Format("Trigger OnNavigatedFrom for each tab in MainPage@{0:X8}", this.GetHashCode()));
                 foreach (muxc.TabViewItem tabViewItem in TabView_Main.TabItems)
                 {
                     (tabViewItem.Content as Frame).GetNavigationState();
@@ -63,6 +64,7 @@ namespace Notebook_L
                 {
                     Int32 id = ApplicationView.GetForCurrentView().Id;
                     await ApplicationViewSwitcher.TryShowAsStandaloneAsync(id);
+                    Log.Info(String.Format("Show MainPage@{0:X8}", this.GetHashCode()));
                 };
             }
             else
@@ -75,6 +77,7 @@ namespace Notebook_L
                 TryShow = async () =>
                 {
                     await window.TryShowAsync();
+                    Log.Info(String.Format("Show MainPage@{0:X8}", this.GetHashCode()));
                 };
             }
         }
@@ -93,17 +96,19 @@ namespace Notebook_L
 
         public static Tuple<MainPage, TabViewItem> SearchTab(String tabId)
         {
-            foreach (MainPage page in MainPage.Instances)
+            foreach (MainPage page in Instances)
             {
                 foreach (TabViewItem item in page.TabView_Main.TabItems)
                 {
                     if (item.Tag as String == tabId)
                     {
-                        Log.Info(String.Format("Find TabViewItem with Tag = {0}", tabId));
+                        Log.Info(String.Format("Found TabViewItem@{0:X8} in MainPage@{1:X8} with Tag = {2}", 
+                            page.GetHashCode(), item.GetHashCode(), tabId));
                         return new Tuple<MainPage, TabViewItem>(page, item);
                     }
                 }
             }
+            Log.Info(String.Format("No TabViewItem with Tag = {0} Found", tabId));
             return null;
         }
 
@@ -147,7 +152,7 @@ namespace Notebook_L
         #region EventHandler TabView_Main
         private void TabView_Main_Loaded(object sender, RoutedEventArgs args)
         {
-            Log.Info("TabView_Main_Loaded");
+            Log.Info(String.Format("@{0:X8}: TabView_Main_Loaded", this.GetHashCode()));
 
             if (InitialTab)
             {
@@ -158,65 +163,74 @@ namespace Notebook_L
 
         private async void TabView_Main_TabItemsChanged(muxc.TabView sender, IVectorChangedEventArgs args)
         {
-            Log.Info("TabView_Main_TabItemsChanged");
+            Log.Info(String.Format("@{0:X8}: TabView_Main_TabItemsChanged", this.GetHashCode()));
 
             if (sender.TabItems.Count == 0)
             {
                 if (Window != null)
                 {
-                    Log.Info("Close the AppWindow");
                     await Window.CloseAsync();
                 }
                 else
                 {
-                    Log.Info("Close the main ApplicationView");
                     await ApplicationView.GetForCurrentView().TryConsolidateAsync();
                 }
+
+                Log.Info(String.Format("Close AppWindow@{0:X8} and corresponding MainPage@{1:X8}",
+                    Window == null ? 0 : Window.GetHashCode(), this.GetHashCode()));
             }
         }
 
         private void TabView_Main_AddTabButtonClick(muxc.TabView sender, object args)
         {
-            Log.Info("TabView_Main_AddTabButtonClick");
+            Log.Info(String.Format("@{0:X8}: TabView_Main_AddTabButtonClick", this.GetHashCode()));
 
             muxc.TabViewItem tabViewItem = CreateHomePageTab();
             sender.TabItems.Add(tabViewItem);
+
+            Log.Info(String.Format("Add TabViewItem@{0:X8} into MainPage@{1:X8}",
+                tabViewItem.GetHashCode(), this.GetHashCode()));
         }
 
         private void TabView_Main_TabCloseRequested(muxc.TabView sender, muxc.TabViewTabCloseRequestedEventArgs args)
         {
-            Log.Info("TabView_Main_TabCloseRequested");
+            Log.Info(String.Format("@{0:X8}: TabView_Main_TabCloseRequested", this.GetHashCode()));
 
-            (args.Tab.Content as Frame).GetNavigationState();
+            (args.Tab.Content as Frame).GetNavigationState();   // Trigger OnNavigatedFrom
             sender.TabItems.Remove(args.Tab);
+
+            Log.Info(String.Format("Remove TabViewItem@{0:X8} from MainPage@{1:X8}",
+                args.Tab.GetHashCode(), this.GetHashCode()));
         }
 
         private async void TabView_Main_TabDroppedOutside(muxc.TabView sender, muxc.TabViewTabDroppedOutsideEventArgs args)
         {
-            Log.Info("TabView_Main_TabDroppedOutside");
+            Log.Info(String.Format("@{0:X8}: TabView_Main_TabDroppedOutside", this.GetHashCode()));
 
             // Cannot remove the last TabViewItem in a window, otherwise it will result
             // the lose of TabViewItem
             if (this.TabView_Main.TabItems.Count > 1)
             {
-                Log.Info("Create a new AppWindow");
-
                 AppWindow newWindow = await AppWindow.TryCreateAsync();
                 MainPage newPage = new MainPage(newWindow, false);
                 ElementCompositionPreview.SetAppWindowContent(newWindow, newPage);
+                
+                Log.Info(String.Format("Compose AppWindow@{0:X8} and MainPage@{1:X8}",
+                    newWindow.GetHashCode(), newPage.GetHashCode()));
 
-                Log.Info("Move the TabViewItem from old window to new window");
                 this.TabView_Main.TabItems.Remove(args.Tab);
                 newPage.TabView_Main.TabItems.Add(args.Tab);
 
-                Log.Info("Show the new AppWindow");
-                await newWindow.TryShowAsync();
+                Log.Info(String.Format("Move TabViewItem@{0:X8} from MainPage@{1:X8} to MainPage@{2:X8}",
+                    args.Tab.GetHashCode(), this.GetHashCode(), newPage.GetHashCode()));
+
+                newPage.TryShow();
             }
         }
 
         private void TabView_Main_TabStripDragOver(object sender, DragEventArgs args)
         {
-            Log.Info("TabView_Main_TabStripDragOver");
+            Log.Info(String.Format("@{0:X8}: TabView_Main_TabStripDragOver", this.GetHashCode()));
 
             // Only TabViewItem is allowed to drop
             if (args.DataView.Properties.ContainsKey(TabDataIdentifier))
@@ -227,15 +241,13 @@ namespace Notebook_L
 
         private void TabView_Main_TabStripDrop(object sender, DragEventArgs args)
         {
-            Log.Info("TabView_Main_TabStripDrop");
+            Log.Info(String.Format("@{0:X8}: TabView_Main_TabStripDrop", this.GetHashCode()));
 
             if (args.DataView.Properties.TryGetValue(TabDataIdentifier, out object obj))
             {
-                Log.Info("Get the list of TabViewItems from destination window");
                 muxc.TabView destTabView = sender as muxc.TabView;
                 IList<object> destTabItems = destTabView.TabItems;
 
-                Log.Info("Find the drop location of new TabViewItem");
                 Int32 index = -1;
                 for (Int32 i = 0; i < destTabItems.Count; i++)
                 {
@@ -247,19 +259,20 @@ namespace Notebook_L
                         break;
                     }
                 }
+                Log.Info(String.Format("Found the drop location, index = {0}", index));
 
-                Log.Info("Remove TabViewItem from source window");
                 muxc.TabViewItem srcTabViewItem = obj as muxc.TabViewItem;
                 (srcTabViewItem.Parent as muxc.Primitives.TabViewListView).Items.Remove(obj);
+                Log.Info(String.Format("Remove TabViewItem@{0:X8} from source page", srcTabViewItem.GetHashCode()));
 
                 if (index < 0)
                 {
-                    Log.Info("Insert to the end ({0} TabViewItems in the list)", destTabItems.Count);
+                    Log.Info("Insert to the end ({0} in the list)", destTabItems.Count);
                     destTabItems.Add(srcTabViewItem);
                 }
                 else
                 {
-                    Log.Info(String.Format("Insert to location {0} ({1} TabViewItems in the list)", index, destTabItems.Count));
+                    Log.Info(String.Format("Insert to location {0} ({1} in the list)", index, destTabItems.Count));
                     destTabItems.Insert(index, srcTabViewItem);
                 }
 
@@ -269,7 +282,7 @@ namespace Notebook_L
 
         private void TabView_Main_TabDragStarting(muxc.TabView sender, muxc.TabViewTabDragStartingEventArgs args)
         {
-            Log.Info("TabView_Main_TabDragStarting");
+            Log.Info(String.Format("@{0:X8}: TabView_Main_TabDragStarting", this.GetHashCode()));
 
             args.Data.Properties.Add(TabDataIdentifier, args.Tab);
             args.Data.RequestedOperation = DataPackageOperation.Move;
@@ -279,22 +292,22 @@ namespace Notebook_L
         #region EventHandler Button_Setting
         private void Button_Setting_Click(object sender, RoutedEventArgs args)
         {
-            Log.Info("Button_Setting_Click");
+            Log.Info(String.Format("@{0:X8}: Button_Setting_Click", this.GetHashCode()));
 
             Tuple<MainPage, TabViewItem> tuple = SearchTab(SettingPageTabId);
 
             if (tuple != null)
             {
-                Log.Info("Find an existing Setting Tab, show it");
                 tuple.Item1.TryShow();
                 tuple.Item1.TabView_Main.SelectedItem = tuple.Item2;
             }
             else
             {
-                Log.Info("Create a new Setting Tab");
                 muxc.TabViewItem tabViewItem = CreateSettingPageTab();
                 TabView_Main.TabItems.Add(tabViewItem);
                 TabView_Main.SelectedItem = tabViewItem;
+                Log.Info(String.Format("Add TabViewItem@{0:X8} into MainPage@{1:X8}",
+                    tabViewItem.GetHashCode(), this.GetHashCode()));
             }
         }
         #endregion
