@@ -20,42 +20,23 @@ namespace Notebook_L
         // The set of instances of this class
         private static readonly ISet<MainPage> Instances = new HashSet<MainPage>();
         private readonly AppWindow Window;
+        private readonly Boolean InitialTab;
 
         #region Constructor
-        public MainPage()
+        public MainPage() : this(null, true) { }
+
+        public MainPage(AppWindow window, Boolean initialTab)
         {
-            Log.Info("Create object MainPage");
-
-            Log.Info("Add this into Instances");
-            Instances.Add(this);
-
-            Window = null;
-            this.InitializeComponent();
-
-            ApplicationView.GetForCurrentView().Consolidated += (ApplicationView appView, ApplicationViewConsolidatedEventArgs args) =>
-            {
-                Log.Info("Remove this from Instances");
-                Instances.Remove(this);
-
-                Log.Info("Trigger OnNavigatingFrom for each page.");
-                foreach(muxc.TabViewItem tabViewItem in TabView_Main.TabItems)
-                {
-                    (tabViewItem.Content as Frame).Navigate(typeof(BlankPage));
-                }
-            };
-        }
-
-        public MainPage(AppWindow window)
-        {
-            Log.Info("Create object MainPage with AppWindow");
+            Log.Info(String.Format("Create object MainPage, initialTab = {0}", initialTab));
 
             Log.Info("Add this into Instances");
             Instances.Add(this);
 
             Window = window;
+            InitialTab = initialTab;
             this.InitializeComponent();
 
-            Window.Closed += (AppWindow win, AppWindowClosedEventArgs args) =>
+            Action action = () =>
             {
                 Log.Info("Remove this from Instances");
                 Instances.Remove(this);
@@ -66,6 +47,21 @@ namespace Notebook_L
                     (tabViewItem.Content as Frame).Navigate(typeof(BlankPage));
                 }
             };
+
+            if (window == null)
+            {
+                ApplicationView.GetForCurrentView().Consolidated += (ApplicationView appView, ApplicationViewConsolidatedEventArgs args) =>
+                {
+                    action();
+                };
+            }
+            else
+            {
+                Window.Closed += (AppWindow win, AppWindowClosedEventArgs args) =>
+                {
+                    action();
+                };
+            }
         }
         #endregion
 
@@ -123,9 +119,9 @@ namespace Notebook_L
         {
             Log.Info("TabView_Main_Loaded");
 
-            muxc.TabView tabView = sender as muxc.TabView;
-            if (tabView.TabItems.Count == 0)
+            if (InitialTab)
             {
+                muxc.TabView tabView = sender as muxc.TabView;
                 tabView.TabItems.Add(CreateHomePageTab());
             }
         }
@@ -176,7 +172,7 @@ namespace Notebook_L
                 Log.Info("Create a new AppWindow");
 
                 AppWindow newWindow = await AppWindow.TryCreateAsync();
-                MainPage newPage = new MainPage(newWindow);
+                MainPage newPage = new MainPage(newWindow, false);
                 ElementCompositionPreview.SetAppWindowContent(newWindow, newPage);
 
                 Log.Info("Move the TabViewItem from old window to new window");
