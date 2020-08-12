@@ -28,9 +28,9 @@ namespace Notebook_L
             GlobalCrashHandler.Configure();
 
             // Logging some global information
-            Log.Info(message: String.Format("The LocalFolder is {0}", ApplicationData.Current.LocalFolder.Path));
+            Log.Info(String.Format("The LocalFolder is {0}", ApplicationData.Current.LocalFolder.Path));
 
-            Log.Info("Create object App");
+            Log.Info(String.Format("Create object App @{0:X8}", this.GetHashCode()));
 
             this.InitializeComponent();
 
@@ -41,16 +41,17 @@ namespace Notebook_L
         }
 
         // Invoked when Navigation to a certain page fails
-        void NavigationFailed(object sender, NavigationFailedEventArgs args)
+        private void NavigationFailed(object sender, NavigationFailedEventArgs args)
         {
             throw new Exception("Failed to load Page " + args.SourcePageType.FullName);
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            Log.Info(message: String.Format("OnLaunched"));
-            Log.Info(message: String.Format("App previous execution state is {0}", args.PreviousExecutionState.ToString("G")));
-            Log.Info(message: String.Format("App pre-launch activated is {0}", args.PrelaunchActivated));
+            Log.Info(String.Format("@{0:X8}: OnLaunched", this.GetHashCode()));
+            Log.Info(String.Format("PreviousExecutionState = {0}, PrelaunchActivated = {1}", 
+                args.PreviousExecutionState.ToString("G"),
+                args.PrelaunchActivated));
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -86,23 +87,23 @@ namespace Notebook_L
 
         private void OnEnteredBackground(object sender, EnteredBackgroundEventArgs args)
         {
-            Log.Info(message: String.Format("OnEnteredBackground"));
+            Log.Info(String.Format("@{0:X8}: OnEnteredBackground", this.GetHashCode()));
             // TODO: Save all tabs
         }
 
         private void OnSuspending(object sender, SuspendingEventArgs args)
         {
-            Log.Info(message: String.Format("OnSuspending"));
+            Log.Info(String.Format("@{0:X8}: OnSuspending", this.GetHashCode()));
         }
 
         private void OnResuming(object sender, object args)
         {
-            Log.Info(message: String.Format("OnResuming"));
+            Log.Info(String.Format("@{0:X8} OnResuming", this.GetHashCode()));
         }
 
         private void OnLeavingBackground(object sender, LeavingBackgroundEventArgs args)
         {
-            Log.Info(message: String.Format("OnLeavingBackground"));
+            Log.Info(String.Format("@{0:X8}: OnLeavingBackground", this.GetHashCode()));
             // TODO: Retrive all tabs and clear the cache
         }
     }
