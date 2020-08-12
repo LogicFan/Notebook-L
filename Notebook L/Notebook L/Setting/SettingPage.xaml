@@ -8,7 +8,39 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Page.Resources>
+        <Style TargetType="SymbolIcon">
+            <Setter Property="Width" Value="48"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="48"/>
+            <ColumnDefinition Width="16"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <ListBox Name="ListBox_Menu" 
+                 Background="Transparent"
+                 Loaded="ListBox_Menu_Loaded"
+                 SelectionChanged="ListBox_Menu_SelectionChanged"
+                 Grid.Column="0">
+            <SymbolIcon Symbol="Library"   Tag="Notebook"/>
+            <SymbolIcon Symbol="Globe"     Tag="Location"/>
+            <SymbolIcon Symbol="Keyboard"  Tag="Input"/>
+            <SymbolIcon Symbol="Preview"   Tag="Template"/>
+            <SymbolIcon Symbol="Important" Tag="About"/>
+        </ListBox>
+
+        <Line Y2="1" 
+              Stretch="Fill"
+              HorizontalAlignment="Right"
+              Stroke="{ThemeResource SystemChromeMediumColor}"/>
+
+        <Frame x:Name="Frame_Settings" 
+               Grid.Column="2"
+               HorizontalAlignment="Stretch"/>
     </Grid>
 </Page>

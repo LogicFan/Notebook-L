@@ -279,15 +279,19 @@ namespace Notebook_L
         #region EventHandler Button_Setting
         private void Button_Setting_Click(object sender, RoutedEventArgs args)
         {
+            Log.Info("Button_Setting_Click");
+
             Tuple<MainPage, TabViewItem> tuple = SearchTab(SettingPageTabId);
 
             if (tuple != null)
             {
+                Log.Info("Find an existing Setting Tab, show it");
                 tuple.Item1.TryShow();
                 tuple.Item1.TabView_Main.SelectedItem = tuple.Item2;
             }
             else
             {
+                Log.Info("Create a new Setting Tab");
                 muxc.TabViewItem tabViewItem = CreateSettingPageTab();
                 TabView_Main.TabItems.Add(tabViewItem);
                 TabView_Main.SelectedItem = tabViewItem;

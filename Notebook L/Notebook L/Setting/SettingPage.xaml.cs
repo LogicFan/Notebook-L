@@ -26,5 +26,15 @@ namespace Notebook_L.Setting
         {
             this.InitializeComponent();
         }
+
+        private void ListBox_Menu_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ListBox_Menu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
