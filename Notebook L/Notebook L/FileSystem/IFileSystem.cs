@@ -6,8 +6,8 @@ namespace Notebook_L.FileSystem
 {
     interface IFileSystem
     {
-        Account Data { get; }
-        String Path { get; }
+        Nullable<Account> Data { get; }
+        String Name { get; }
 
         Task<IFolder> GetRootFolderAsync();
     }

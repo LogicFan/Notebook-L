@@ -12,8 +12,8 @@ namespace Notebook_L.FileSystem
 
         Task<IFolder> GetParentAsync();
 
-        Task<StorageFile> GetFileAsync();
-        void SetFileAsync(Task<StorageFile> file);
+        Task<StorageFile> GetFileAsync(StorageFolder target);
+        void SetFileAsync(StorageFile source);
 
         void DeleteAsync();
     }
