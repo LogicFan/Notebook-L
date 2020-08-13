@@ -150,6 +150,7 @@
     <Compile Include="Setting\NotebookPage.xaml.cs">
       <DependentUpon>NotebookPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Setting\Setting.cs" />
     <Compile Include="Setting\SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>

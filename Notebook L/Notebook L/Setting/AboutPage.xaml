@@ -15,8 +15,6 @@
                   VerticalScrollBarVisibility="Auto"
                   Padding="0,0,16,0">
         <StackPanel Orientation="Vertical">
-            <TextBlock Text="About" Style="{StaticResource HeaderTextBlockStyle}"/>
-
             <TextBlock Text="Software Information" Style="{StaticResource TitleTextBlockStyle}"/>
             <Line X2="1" 
                   Stretch="Fill"
@@ -26,7 +24,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -43,7 +41,7 @@
                            Text="Notebook L (Universal Windows Platform)"/>
                 <TextBlock Grid.Column="1" Grid.Row="1"
                            Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"
-                           Text="Alpha 0.1.1"/>
+                           Text="{x:Bind local:Setting.Version}"/>
             </Grid>
 
             <TextBlock Text="Diagnostic Infomation" Style="{StaticResource TitleTextBlockStyle}"/>
