@@ -29,7 +29,13 @@ namespace Notebook_L.Setting
 
         private void ListBox_Menu_Loaded(object sender, RoutedEventArgs e)
         {
-            //throw new NotImplementedException();
+            Log.Info(String.Format("@{0:X8}: ListBox_Menu_Loaded", this.GetHashCode()));
+
+            ListBox listBox = sender as ListBox;
+            if (listBox.SelectedItem == null)
+            {
+                listBox.SelectedItem = listBox.Items[0];
+            }
         }
 
         private void ListBox_Menu_SelectionChanged(object sender, SelectionChangedEventArgs e)
