@@ -24,12 +24,12 @@ namespace Notebook_L.Setting
 
         private void ListBox_Menu_Loaded(object sender, RoutedEventArgs e)
         {
-
+            throw new NotImplementedException();
         }
 
         private void ListBox_Menu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            throw new NotImplementedException();
         }
     }
 }
