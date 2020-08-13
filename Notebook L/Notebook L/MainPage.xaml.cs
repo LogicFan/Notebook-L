@@ -179,6 +179,7 @@ namespace Notebook_L
 
             muxc.TabViewItem tabViewItem = CreateHomePageTab();
             sender.TabItems.Add(tabViewItem);
+            sender.SelectedItem = tabViewItem;
 
             Log.Info(String.Format("Add TabViewItem@{0:X8} into MainPage@{1:X8}",
                 tabViewItem.GetHashCode(), this.GetHashCode()));
