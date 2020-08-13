@@ -5,16 +5,26 @@ using Windows.Storage;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using MetroLog;
 
 namespace Notebook_L.FileSystem
 {
     class LocalFileSystem : IFileSystem
     {
+        private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<LocalFileSystem>();
+
         public Nullable<Account> Data => null;
         public String Name => Constant.LocalFileSystemName;
 
+        public LocalFileSystem()
+        {
+            Log.Info(String.Format("Create object LocalFileSystem@{0:X8}", this.GetHashCode()));
+        }
+
         public async Task<IFolder> GetRootFolderAsync()
         {
+            Log.Info(String.Format("{0:X8}: GetRootFolderAsync", this.GetHashCode()));
+
             StorageFolder root = await Constant.LocalFolder.CreateFolderAsync("Notebook-L", CreationCollisionOption.OpenIfExists);
             return new LocalFolder(root, this);
         }
