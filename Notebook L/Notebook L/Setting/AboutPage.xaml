@@ -1,0 +1,62 @@
+﻿<Page
+    x:Class="Notebook_L.Setting.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Notebook_L.Setting"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer ZoomMode="Disabled"
+                  IsVerticalScrollChainingEnabled="True"
+                  HorizontalScrollMode="Disabled"
+                  VerticalScrollMode="Enabled"
+                  VerticalScrollBarVisibility="Auto"
+                  Padding="0,0,16,0">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="About" Style="{StaticResource HeaderTextBlockStyle}"/>
+
+            <TextBlock Text="Software Information" Style="{StaticResource TitleTextBlockStyle}"/>
+            <Line X2="1" 
+                  Stretch="Fill"
+                  HorizontalAlignment="Right"
+                  Stroke="{ThemeResource SystemChromeMediumColor}"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" 
+                           Text="Software"/>
+                <TextBlock Grid.Column="0" Grid.Row="1"
+                           Text="Version"/>
+
+                <TextBlock Grid.Column="1" Grid.Row="0"
+                           Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"
+                           Text="Notebook L (Universal Windows Platform)"/>
+                <TextBlock Grid.Column="1" Grid.Row="1"
+                           Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"
+                           Text="Alpha 0.1.1"/>
+            </Grid>
+
+            <TextBlock Text="Diagnostic Infomation" Style="{StaticResource TitleTextBlockStyle}"/>
+            <Line X2="1" 
+                  Stretch="Fill"
+                  HorizontalAlignment="Right"
+                  Stroke="{ThemeResource SystemChromeMediumColor}"/>
+
+            <Button x:Name="Button_Diagnostic"
+                    Margin="0,8,0,0"
+                    Click="Button_Diagnostic_Click">
+                Export Diagnostic Data
+            </Button>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

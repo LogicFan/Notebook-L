@@ -15,10 +15,10 @@ namespace Notebook_L
         #region FileSystem
         public const String LocalFileSystemName = "Local";
 
-        public static StorageFolder DocumentsLibrary = KnownFolders.DocumentsLibrary;
-        public static StorageFolder LocalFolder = ApplicationData.Current.LocalFolder;
-        public static StorageFolder TemporaryFolder = ApplicationData.Current.TemporaryFolder;
-        public static StorageFolder RoamingFolder = ApplicationData.Current.RoamingFolder;
+        public static StorageFolder DocumentsLibrary => KnownFolders.DocumentsLibrary;
+        public static StorageFolder LocalFolder => ApplicationData.Current.LocalFolder;
+        public static StorageFolder TemporaryFolder => ApplicationData.Current.TemporaryFolder;
+        public static StorageFolder RoamingFolder => ApplicationData.Current.RoamingFolder;
         #endregion
     }
 }
