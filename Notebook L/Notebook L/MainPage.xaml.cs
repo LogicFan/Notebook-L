@@ -84,14 +84,6 @@ namespace Notebook_L
         #endregion
 
         #region TabViewItem
-        public const String HomePageTabId = "HomePage-BvlzpOeJ";
-        public const String SettingPageTabId = "SettingPage-fkXRAjq1";
-        public static String DocumentPageTabId(String id)
-        {
-            return "DocumentPage-" + id;
-        }
-        public const String TabDataIdentifier = "iLoj4PTo";
-
         public static IEnumerable<TabViewItem> TabItems => Instances.SelectMany(e => e.TabView_Main.TabItems).Select(e => e as TabViewItem);
 
         public static Tuple<MainPage, TabViewItem> SearchTab(String tabId)
@@ -116,7 +108,7 @@ namespace Notebook_L
         {
             muxc.TabViewItem tabViewItem = new muxc.TabViewItem
             {
-                Tag = HomePageTabId,
+                Tag = Constant.HomePageTabId,
                 Header = "Home",
                 IconSource = new muxc.SymbolIconSource()
                 {
@@ -134,7 +126,7 @@ namespace Notebook_L
         {
             muxc.TabViewItem tabViewItem = new muxc.TabViewItem
             {
-                Tag = SettingPageTabId,
+                Tag = Constant.SettingPageTabId,
                 Header = "Settings",
                 IconSource = new muxc.SymbolIconSource()
                 {
@@ -233,7 +225,7 @@ namespace Notebook_L
             Log.Info(String.Format("@{0:X8}: TabView_Main_TabStripDragOver", this.GetHashCode()));
 
             // Only TabViewItem is allowed to drop
-            if (args.DataView.Properties.ContainsKey(TabDataIdentifier))
+            if (args.DataView.Properties.ContainsKey(Constant.TabDataIdentifier))
             {
                 args.AcceptedOperation = DataPackageOperation.Move;
             }
@@ -243,7 +235,7 @@ namespace Notebook_L
         {
             Log.Info(String.Format("@{0:X8}: TabView_Main_TabStripDrop", this.GetHashCode()));
 
-            if (args.DataView.Properties.TryGetValue(TabDataIdentifier, out object obj))
+            if (args.DataView.Properties.TryGetValue(Constant.TabDataIdentifier, out object obj))
             {
                 muxc.TabView destTabView = sender as muxc.TabView;
                 IList<object> destTabItems = destTabView.TabItems;
@@ -284,7 +276,7 @@ namespace Notebook_L
         {
             Log.Info(String.Format("@{0:X8}: TabView_Main_TabDragStarting", this.GetHashCode()));
 
-            args.Data.Properties.Add(TabDataIdentifier, args.Tab);
+            args.Data.Properties.Add(Constant.TabDataIdentifier, args.Tab);
             args.Data.RequestedOperation = DataPackageOperation.Move;
         }
         #endregion
@@ -294,7 +286,7 @@ namespace Notebook_L
         {
             Log.Info(String.Format("@{0:X8}: Button_Setting_Click", this.GetHashCode()));
 
-            Tuple<MainPage, TabViewItem> tuple = SearchTab(SettingPageTabId);
+            Tuple<MainPage, TabViewItem> tuple = SearchTab(Constant.SettingPageTabId);
 
             if (tuple != null)
             {
