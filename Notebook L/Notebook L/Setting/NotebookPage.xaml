@@ -8,7 +8,42 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <ScrollViewer ZoomMode="Disabled"
+                  IsVerticalScrollChainingEnabled="True"
+                  HorizontalScrollMode="Disabled"
+                  VerticalScrollMode="Enabled"
+                  VerticalScrollBarVisibility="Auto"
+                  Padding="0,0,16,0">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Notebook Infomation" Style="{StaticResource TitleTextBlockStyle}"/>
+            <Line X2="1" 
+                  Stretch="Fill"
+                  HorizontalAlignment="Right"
+                  Stroke="{ThemeResource SystemChromeMediumColor}"/>
 
-    </Grid>
+            <ListView x:Name="ListView_Notebook" 
+                      IsItemClickEnabled="True"
+                      SelectionMode="Single"
+                      HorizontalContentAlignment="Stretch"
+                      VerticalContentAlignment="Stretch"
+                      Loaded="ListView_Notebook_Loaded" 
+                      ContainerContentChanging="ListView_Notebook_ContainerContentChanging"
+                      SelectionChanged="ListView_Notebook_SelectionChanged">
+                <!--<ListView.ItemTemplate>
+                    <DataTemplate x:DataType="location:Location">
+                        <Grid Height="32">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="{x:Bind UIName}" 
+                                       Style="{StaticResource BaseTextBlockStyle}"/>
+                            <TextBlock Grid.Row="1" Text="{x:Bind UISource}"
+                                       Style="{StaticResource CaptionTextBlockStyle}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>-->
+            </ListView>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

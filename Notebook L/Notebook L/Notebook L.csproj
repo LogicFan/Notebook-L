@@ -136,6 +136,7 @@
     <Compile Include="FileSystem\IFileSystem.cs" />
     <Compile Include="FileSystem\IFolder.cs" />
     <Compile Include="FileSystem\LocalFileSystem.cs" />
+    <Compile Include="FileSystem\Notebook.cs" />
     <Compile Include="HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
