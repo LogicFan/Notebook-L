@@ -21,14 +21,15 @@
                   Stretch="Fill"
                   HorizontalAlignment="Right"
                   Stroke="{ThemeResource SystemChromeMediumColor}"/>
-
+            
             <ListView x:Name="ListView_Notebook"
+                      SelectionMode="None"
                       HorizontalContentAlignment="Stretch"
                       VerticalContentAlignment="Stretch"
                       Loaded="ListView_Notebook_Loaded">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="fs:Notebook">
-                        <Grid Height="32">
+                        <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="3*"/>
                                 <RowDefinition Height="2*"/>
