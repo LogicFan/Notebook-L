@@ -28,7 +28,6 @@
                  SelectionChanged="ListBox_Menu_SelectionChanged"
                  Grid.Column="0">
             <SymbolIcon Symbol="Library"   Tag="Notebook"/>
-            <SymbolIcon Symbol="Account"   Tag="Account"/>
             <SymbolIcon Symbol="Keyboard"  Tag="Input"/>
             <SymbolIcon Symbol="Preview"   Tag="Template"/>
             <SymbolIcon Symbol="Important" Tag="About"/>
