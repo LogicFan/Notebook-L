@@ -39,15 +39,5 @@ namespace Notebook_L.FileSystem
         {
             return Folder;
         }
-
-        public static Notebook CreateNotebookFromFileSystem(IFileSystem fileSystem)
-        {
-            return null;
-        }
-
-        public static Notebook CreateNotebookFromLocation(Location location)
-        {
-            return null;
-        }
     }
 }
