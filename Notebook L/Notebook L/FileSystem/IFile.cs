@@ -4,12 +4,10 @@ using Windows.Storage;
 
 namespace Notebook_L.FileSystem
 {
-    interface IFile
+    interface IFile : IFileItem
     {
-        String Name { get; }
         IFileSystem FileSystem { get; }
-        String Path { get; }
-
+        
         Task<IFolder> GetParentAsync();
 
         Task<StorageFile> GetFileAsync(StorageFolder target);

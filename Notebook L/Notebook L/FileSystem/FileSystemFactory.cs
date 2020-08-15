@@ -8,16 +8,17 @@ namespace Notebook_L.FileSystem
     {
         private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger(typeof(FileSystemFactory).Name);
 
-        public static IFileSystem CreateFileSystem(Nullable<Account> account)
+        public static IFileSystem CreateFileSystem(Location location)
         {
             Log.Info("CreateFileSystem");
 
-            if (account == null)
+            switch (location.Source)
             {
-                return new LocalFileSystem();
+                case Location.SourceType.Local:
+                    return new LocalFileSystem(location);
+                default:
+                    throw new NotImplementedException();
             }
-
-            throw new NotImplementedException();
         }
     }
 }

@@ -5,31 +5,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media;
 
 namespace Notebook_L.FileSystem
 {
-    class Notebook
+    class Notebook : IFileItem
     {
         private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<Notebook>();
 
-        public Nullable<Account> Data => RootFolder.FileSystem.Data;
+        private readonly IFolder Folder;
 
-        private String Name => RootFolder.FileSystem.Name;
-        private Boolean Primary { get; set; }
-        public String UIName => Name + (Primary ? " (Primary Notebook)" : "");
+        public String Name => Data.Name;
+        public String Path => Folder.Path;
 
-        private String Source => Data == null ? "" : Data.Value.Source.ToString("G") + " - ";
-        private String Path => RootFolder.Path;
-        public String UIPath => Source + Path;
-
-        public IFolder RootFolder { get; }
+        public Location Data => Folder.FileSystem.Data;
+        public Boolean IsPrimary { get; set; } = false;
+        public String UIName => Name + (IsPrimary ? " (Primary)" : "");
+        public String UIPath => Data.Source.ToString("G") + " - " + Path;
+        public ImageSource Icon { get; }
 
         public Notebook(IFolder folder)
         {
             Log.Info(String.Format("Create object Notebook@{0:X8}, folder = IFolder@{1:X8}", 
                 this.GetHashCode(), folder.GetHashCode()));
-            
-            RootFolder = folder;
+
+            Folder = folder;
+        }
+
+        public IFolder GetRootFolder()
+        {
+            return Folder;
+        }
+
+        public static Notebook CreateNotebookFromFileSystem(IFileSystem fileSystem)
+        {
+            return null;
+        }
+
+        public static Notebook CreateNotebookFromLocation(Location location)
+        {
+            return null;
         }
     }
 }

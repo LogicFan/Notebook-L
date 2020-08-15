@@ -2,10 +2,11 @@
 
 namespace Notebook_L.Serializable
 {
-    struct Account
+    struct Location
     {
         public enum SourceType
         {
+            Local,
             OneDrive,
             GoogleDrive,
             iCloudDrive,

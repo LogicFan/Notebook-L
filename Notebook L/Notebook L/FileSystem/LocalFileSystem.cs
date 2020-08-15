@@ -13,12 +13,13 @@ namespace Notebook_L.FileSystem
     {
         private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<LocalFileSystem>();
 
-        public Nullable<Account> Data => null;
+        public Location Data { get; }
         public String Name => Constant.LocalFileSystemName;
 
-        public LocalFileSystem()
+        public LocalFileSystem(Location location)
         {
             Log.Info(String.Format("Create object LocalFileSystem@{0:X8}", this.GetHashCode()));
+            Data = location;
         }
 
         public async Task<IFolder> GetRootFolderAsync()
