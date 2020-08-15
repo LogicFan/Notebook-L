@@ -32,6 +32,8 @@ namespace Notebook_L.FileSystem
 
     class LocalFolder : IFolder
     {
+        private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<LocalFolder>();
+
         private readonly StorageFolder Folder;
         
         public String Name => Folder.Name;
@@ -40,6 +42,9 @@ namespace Notebook_L.FileSystem
 
         public LocalFolder(StorageFolder folder, IFileSystem fileSystem)
         {
+            Log.Info(String.Format("Create object LocalFolder@{0:X8}, fileSystem = LocalFileSystem@{1:X8}", 
+                this.GetHashCode(), fileSystem.GetHashCode()));
+
             Folder = folder;
             FileSystem = fileSystem;
         }
@@ -68,12 +73,15 @@ namespace Notebook_L.FileSystem
 
         public async void DeleteAsync()
         {
+            Log.Info(String.Format("@{0:X8}: DeleteAsync", this.GetHashCode()));
             await Folder.DeleteAsync();
         }
     }
 
     class LocalFile : IFile
     {
+        private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<LocalFile>();
+
         private readonly StorageFile File;
 
         public String Name => File.Name;
@@ -82,6 +90,9 @@ namespace Notebook_L.FileSystem
 
         public LocalFile(StorageFile file, IFileSystem fileSystem)
         {
+            Log.Info(String.Format("Create object LocalFile@{0:X8}, fileSystem = LocalFileSystem@{1:X8}",
+                this.GetHashCode(), fileSystem.GetHashCode()));
+
             File = file;
             FileSystem = FileSystem;
         }
@@ -93,15 +104,18 @@ namespace Notebook_L.FileSystem
 
         public async Task<StorageFile> GetFileAsync(StorageFolder target)
         {
+            Log.Info(String.Format("@{0:X8}: GetFileAsync, target = {1}", this.GetHashCode(), target.Path));
             return await File.CopyAsync(target);
         }
         public async void SetFileAsync(StorageFile source)
         {
+            Log.Info(String.Format("@{0:X8}: SetFileAsync, source = {1}", this.GetHashCode(), source.Path));
             await source.CopyAndReplaceAsync(File);
         }
 
         public async void DeleteAsync()
         {
+            Log.Info(String.Format("@{0:X8}: DeleteAsync", this.GetHashCode()));
             await File.DeleteAsync();
         }
     }

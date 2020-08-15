@@ -10,6 +10,8 @@ namespace Notebook_L.FileSystem
 
         public static IFileSystem CreateFileSystem(Nullable<Account> account)
         {
+            Log.Info("CreateFileSystem");
+
             if (account == null)
             {
                 return new LocalFileSystem();
