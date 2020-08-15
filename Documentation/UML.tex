@@ -91,7 +91,7 @@
         +GetRootFolder(): IFolder
     }
 
-    \umlclass[type=interface, x=+8, y=+4]
+    \umlclass[type=interface, x=+12, y=+4]
     {IFolder}
     {
         +Name: String \\
@@ -107,7 +107,7 @@
         +Delete(): void
     }
 
-    \umlclass[type=interface, x=+8, y=-4]
+    \umlclass[type=interface, x=+12, y=-4]
     {IFile}
     {
         +Name: String \\
@@ -115,10 +115,10 @@
         +Path: String
     }
     {
-        +GetParent(): IFolder \\
-        +Download(path: StorageFolder): StorageFile \\
-        +Update(): void \\
-        +Delete(): void
+        +GetParentAsync(): Task<IFolder> \\
+        +GetFileAsync(target: StorageFolder): Task<StorageFile> \\
+        +SetFileAsync(source: StorageFile): void \\
+        +DeleteAsync(): void
     }
 
     \umlclass[type=static, x=-12, y=-4]
