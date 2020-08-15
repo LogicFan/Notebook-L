@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Notebook_L.FileSystem
 {
@@ -30,6 +31,8 @@ namespace Notebook_L.FileSystem
                 this.GetHashCode(), folder.GetHashCode()));
 
             Folder = folder;
+
+            Icon = new SvgImageSource(new Uri("ms-appx:///Assets/Symbol/" + folder.FileSystem.Data.Source.ToString("G") + ".svg"));
         }
 
         public IFolder GetRootFolder()
