@@ -15,7 +15,7 @@
 \umlsimpleclass[type=xaml, x=+4, y=-2]
 {HomePage}
 
-\begin{umlpackage}[x=+0, y=-2]{Settings}
+\begin{umlpackage}[x=+0, y=-4]{Settings}
     \umlsimpleclass[type=xaml, x=+0, y=0]
     {SettingPage}
 
@@ -23,19 +23,16 @@
     {NotebookPage}
 
     \umlsimpleclass[type=xaml, x=-4, y=-2]
-    {AccountPage}
-
-    \umlsimpleclass[type=xaml, x=-8, y=-2]
     {InputPage}
 
-    \umlsimpleclass[type=xaml, x=-12, y=-2]
+    \umlsimpleclass[type=xaml, x=-8, y=-2]
     {TemplatePage}
 
-    \umlsimpleclass[type=xaml, x=-16, y=-2]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+    \umlsimpleclass[type=xaml, x=-12, y=-2]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
     {AboutPage}
 
-    \umlsimpleclass[type=xaml, x=-4, y=-4]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-    {AddAccountPage}
+    \umlsimpleclass[type=xaml, x=+0, y=-4]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+    {AddLocationPage}
 
     \umlclass[type=static, x=-24, y=0]
     {Setting S}
@@ -46,19 +43,18 @@
     }
 
     \umlcompo[geometry=|-|]{SettingPage}{NotebookPage}
-    \umlcompo[geometry=|-|]{SettingPage}{AccountPage}
     \umlcompo[geometry=|-|]{SettingPage}{InputPage}
     \umlcompo[geometry=|-|]{SettingPage}{TemplatePage}
     \umlcompo[geometry=|-|]{SettingPage}{AboutPage}
 
-    \umlassoc[arg1=Nav]{AccountPage}{AddAccountPage}
+    \umlassoc[arg1=Nav]{NotebookPage}{AddLocationPage}
 
     \umldep[geometry=-|-]{SettingPage}{Setting S}
 \end{umlpackage}
 
 \begin{umlpackage}[x=+0, y=-44]{Serializable}
     \umlclass[type=struct, x=-20, y=+0]
-    {Account}
+    {Location}
     {
         +Name: String \\
         +Credential: String \\
@@ -67,8 +63,9 @@
     {}
 
     \umlclass[type=enum, x=-20, y=-4]
-    {Account::SourceType}
+    {Location::SourceType}
     {
+        Local, \\
         OneDrive, \\
         GoogleDrive, \\
         iCloudDrive, \\
@@ -76,48 +73,54 @@
     }
     {}
 
-    \umlcompo[geometry=|-|]{Account}{Account::SourceType}
+    \umlcompo[geometry=|-|]{Location}{Location::SourceType}
 \end{umlpackage}
 
 \begin{umlpackage}[x=-20, y=-32]{FileSystem}
     \umlclass[type=interface, x=+0, y=+0]
     {IFileSystem}
     {
-        +Name: String \\
-        +Source: Serializable.Account.SourceType \\
-        +Path: const String \\
+        +Data: Serializable.Location
     }
     {
-        +GetRootFolder(): IFolder
+        +GetRootFolderAsync(): Task<IFolder>
     }
+
+    \umlclass[type=interface, x=+24, y=+0]
+    {IFileItem}
+    {
+        +Name: String \\
+        +Path: String
+    }
+    {}
 
     \umlclass[type=interface, x=+12, y=+4]
     {IFolder}
     {
-        +Name: String \\
-        +FileSystem: IFileSystem \\
-        +Path: String \\
+        +FileSystem: IFileSystem
     }
     {
-        +GetParent(): IFolder \\
-        +GetFolders(): IEnumerable<IFolder> \\
-        +GetFiles(): IEnumerable<IFile> \\
-        +CreateFile(name: String): IFile \\
-        +CreateFolder(name: String): IDirectory \\
-        +Delete(): void
+        +GetParentAsync(): Task<IFolder> \\
+        +GetFoldersAsync(): Task<IEnumerable<IFolder>> \\
+        +GetFilesAsync(): Task<IEnumerable<IFile>> \\
+        \\
+        +CreateFolderAsync(name: String): Task<IFolder> \\
+        +CreateFileAsync(name: String): Task<IFile> \\
+        \\
+        +DeleteAsync(): void
     }
 
     \umlclass[type=interface, x=+12, y=-4]
     {IFile}
     {
-        +Name: String \\
-        +FileSystem: IFileSystem \\
-        +Path: String
+        +FileSystem: IFileSystem
     }
     {
         +GetParentAsync(): Task<IFolder> \\
+        \\
         +GetFileAsync(target: StorageFolder): Task<StorageFile> \\
         +SetFileAsync(source: StorageFile): void \\
+        \\
         +DeleteAsync(): void
     }
 
@@ -125,26 +128,32 @@
     {FileSystemFactory}
     {}
     {
-        \umlstatic{+CreateFileSystem(account: Serializable.Account): IFileSystem} \\
+        \umlstatic{+CreateFileSystem(location: Serializable.Location): IFileSystem} \\
+        \umlstatic{+CreateTemporaryFolderAsync(): Task<StorageFolder>} \\
+        \\
         \umlstatic{+CopyTo(source: IFile, target: IFolder): void} \\
         \umlstatic{+CopyTo(source: IFolder, target: IFolder): void} \\
         \umlstatic{+MoveTo(source: IFile, target: IFolder): void} \\
-        \umlstatic{+MoveTo(source: IFolder, target: IFolder): void} \\
-        \umlstatic{+CreateLocalTempFolder(): StorageFolder}
+        \umlstatic{+MoveTo(source: IFolder, target: IFolder): void}
     }
 
-    \umlclass[x=-12, y=+4]
+    \umlclass[x=+12, y=+12]
     {Notebook}
     {
+        +Data: Serializable.Location \\
+        +IsPrimary: Boolean \\
         +UIName: String \\
-        +UISource: String \\
         +UIPath: String \\
-        +Data: Serializable.Account \\
+        +Icon: ImageSource
     }
     {
-        +Notebook(fileSystem: IFileSystem) \\
+        +Notebook(root: IFolder) \\
         +GetRootFolder(): IFolder
     }
+
+    \umlinherit[geometry=-|-]{IFolder}{IFileItem}
+    \umlinherit[geometry=-|-]{IFile}{IFileItem}
+    \umlinherit[geometry=-|-]{Notebook}{IFileItem}
 
     \umlcompo[geometry=-|]{Notebook}{IFileSystem}
 
@@ -158,7 +167,7 @@
 
 \umlaggreg[geometry=|-|]{Setting S}{Notebook}
 
-\umlcompo{IFileSystem}{Account}
+\umlcompo{IFileSystem}{Location}
 
 
 \umlsimpleclass[type=xaml, x=+4, y=-4]
