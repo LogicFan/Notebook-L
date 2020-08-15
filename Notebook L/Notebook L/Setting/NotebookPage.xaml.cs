@@ -27,19 +27,10 @@ namespace Notebook_L.Setting
             this.InitializeComponent();
         }
 
-        private void ListView_Notebook_Loaded(object sender, RoutedEventArgs e)
+        private async void ListView_Notebook_Loaded(object sender, RoutedEventArgs args)
         {
-
-        }
-
-        private void ListView_Notebook_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
-        {
-
-        }
-
-        private void ListView_Notebook_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            ListView listView = sender as ListView;
+            listView.ItemsSource = await Setting.GetNotebooksAsync();
         }
     }
 }
