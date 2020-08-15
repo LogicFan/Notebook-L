@@ -48,8 +48,10 @@ namespace Notebook_L.Setting
 
         public static async Task<IEnumerable<Notebook>> GetNotebooksAsync()
         {
-            return await Task.WhenAll(
+            IEnumerable<Notebook> notebooks = await Task.WhenAll(
                 GetFileSystems().Select(async e => new Notebook(await e.GetRootFolderAsync())));
+            notebooks.First().IsPrimary = true;
+            return notebooks;
         }
         #endregion
 
