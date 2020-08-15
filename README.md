@@ -69,3 +69,7 @@ X.zip
  |--X.pdf
  |--X.json
 ```
+
+## Attribute
+
+- [Icons](./Notebook%20L/Assets/Local.svg) made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
