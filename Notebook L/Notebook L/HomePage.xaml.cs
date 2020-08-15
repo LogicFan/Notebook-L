@@ -1,29 +1,26 @@
 ﻿using MetroLog;
+using Notebook_L.FileSystem;
 using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace Notebook_L
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class HomePage : Page
     {
-        // The logger for the class
         private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<HomePage>();
-        private static Int64 Counter = 0;
+
+        public Visibility BackVisibility => Folder == null ? Visibility.Collapsed : Visibility.Visible;
+        public String FolderName => Folder == null ? "Notebooks" : Folder.Name;
+        
+        private IFolder Folder = null;
 
         public HomePage()
         {
-            Log.Info(String.Format("Create object BlankPage with Counter = {0}", Counter));
+            Log.Info(String.Format("Create object HomePage@{0:X8}", this.GetHashCode()));
 
             this.InitializeComponent();
-            
-            TextBlock.Text = "HomePage" + Counter.ToString();
-            Counter += 1;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs args)
@@ -40,5 +37,38 @@ namespace Notebook_L
         {
             Log.Info("OnNavigatingFrom");
         }
+
+        #region Sorting
+        enum SortType
+        {
+            Name, Type, Date
+        }
+
+        public String SortName => SortMode.ToString("G");
+        private SortType SortMode = SortType.Name;
+
+        private void MenuFlyoutItem_Name_Click(object sender, RoutedEventArgs e)
+        {
+            SortMode = SortType.Name;
+            SortContent();
+        }
+
+        private void MenuFlyoutItem_Type_Click(object sender, RoutedEventArgs e)
+        {
+            SortMode = SortType.Type;
+            SortContent();
+        }
+
+        private void MenuFlyoutItem_Date_Click(object sender, RoutedEventArgs e)
+        {
+            SortMode = SortType.Date;
+            SortContent();
+        }
+
+        private void SortContent()
+        {
+            DropDownButton_Sort.Content = SortName;
+        }
+        #endregion
     }
 }

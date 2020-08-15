@@ -5,8 +5,50 @@
     xmlns:local="using:Notebook_L"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <TextBlock x:Name="TextBlock" Style="{StaticResource TitleTextBlockStyle}"/>
+    <StackPanel Orientation="Vertical">
+        <Grid>
+            <Grid HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="1" Background="Transparent" Visibility="{x:Bind BackVisibility}">
+                    <SymbolIcon Symbol="Back"/>
+                </Button>
+                <AppBarSeparator Grid.Column="2" Visibility="{x:Bind BackVisibility}"/>
+                <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{x:Bind FolderName}"/>
+            </Grid>
+            <Grid HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="16"/>
+                </Grid.ColumnDefinitions>
+
+                <muxc:DropDownButton x:Name="DropDownButton_Sort" Grid.Column="0" Background="Transparent" Content="{x:Bind SortName}">
+                    <muxc:DropDownButton.Flyout>
+                        <MenuFlyout Placement="Bottom">
+                            <MenuFlyoutItem Text="Name" Tag="Name" Click="MenuFlyoutItem_Name_Click"/>
+                            <MenuFlyoutItem Text="Type" Tag="Type" Click="MenuFlyoutItem_Type_Click"/>
+                            <MenuFlyoutItem Text="Date" Tag="Date" Click="MenuFlyoutItem_Date_Click"/>
+                        </MenuFlyout>
+                    </muxc:DropDownButton.Flyout>
+                </muxc:DropDownButton>
+                <AppBarSeparator Grid.Column="1"/>
+                <ToggleButton Grid.Column="2" Background="Transparent">
+                    <SymbolIcon Symbol="List"/>
+                </ToggleButton>
+            </Grid>
+        </Grid>
+    </StackPanel>
+
+   
 </Page>
