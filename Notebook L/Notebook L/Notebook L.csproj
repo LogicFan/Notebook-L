@@ -163,6 +163,11 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Symbol\DropBox.svg" />
+    <Content Include="Assets\Symbol\GoogleDrive.svg" />
+    <Content Include="Assets\Symbol\iCloudDrive.svg" />
+    <Content Include="Assets\Symbol\Local.svg" />
+    <Content Include="Assets\Symbol\OneDrive.svg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -211,6 +216,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
