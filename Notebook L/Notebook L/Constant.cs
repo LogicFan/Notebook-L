@@ -12,10 +12,15 @@ namespace Notebook_L
         public const String TabDataIdentifier = "iLoj4PTo";
         #endregion
 
+        #region Setting
+        public const String LocationSettingId = "Location-a2ONjt9v";
+        
+        public static ApplicationDataContainer LocalSettings => ApplicationData.Current.LocalSettings;
+        #endregion
+
         #region FileSystem
         public const String LocalFileSystemName = "Local";
 
-        public static StorageFolder DocumentsLibrary => KnownFolders.DocumentsLibrary;
         public static StorageFolder LocalFolder => ApplicationData.Current.LocalFolder;
         public static StorageFolder TemporaryFolder => ApplicationData.Current.TemporaryFolder;
         public static StorageFolder RoamingFolder => ApplicationData.Current.RoamingFolder;
