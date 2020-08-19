@@ -1,100 +1,99 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using MetroLog;
+using MetroLog.Targets;
+using Windows.Storage;
 
 namespace Notebook_L
 {
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
     sealed partial class App : Application
     {
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
+        // The logger for the class
+        private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<App>();
+
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            // Setting up the logger
+            LogManagerFactory.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new StreamingFileTarget());
+            GlobalCrashHandler.Configure();
+#if DEBUG
+            Log.Info(String.Format("The LocalFolder is {0}", ApplicationData.Current.LocalFolder.Path));
+#endif
+
+            Log.Trace(String.Format("Create object App@{0:X8}", GetHashCode()));
+
+            InitializeComponent();
+
+            EnteredBackground += OnEnteredBackground;
+            Suspending += OnSuspending;
+            Resuming += OnResuming;
+            LeavingBackground += OnLeavingBackground;
         }
 
-        /// <summary>
-        /// Invoked when the application is launched normally by the end user.  Other entry points
-        /// will be used such as when the application is launched to open a specific file.
-        /// </summary>
-        /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        // Invoked when Navigation to a certain page fails
+        private void NavigationFailed(object sender, NavigationFailedEventArgs args)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
+            throw new Exception("Failed to load Page " + args.SourcePageType.FullName);
+        }
 
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (rootFrame == null)
+        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        {
+            Log.Trace(String.Format("App@{0:X8}: OnLaunched", GetHashCode()));
+            
+            Log.Info(String.Format("PreviousExecutionState = {0}, PrelaunchActivated = {1}",
+                args.PreviousExecutionState.ToString("G"),
+                args.PrelaunchActivated));
+
+            if (!(Window.Current.Content is Frame rootFrame))
             {
-                // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
-                rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.NavigationFailed += NavigationFailed;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    //TODO: Load state from previously suspended application
+                    // TODO: Load all saved tabs
                 }
 
-                // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
 
-            if (e.PrelaunchActivated == false)
+            if (args.PrelaunchActivated == false)
             {
                 if (rootFrame.Content == null)
                 {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing required information as a navigation
-                    // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(MainPage), args.Arguments);
                 }
-                // Ensure the current window is active
                 Window.Current.Activate();
             }
         }
 
-        /// <summary>
-        /// Invoked when Navigation to a certain page fails
-        /// </summary>
-        /// <param name="sender">The Frame which failed navigation</param>
-        /// <param name="e">Details about the navigation failure</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        private void OnEnteredBackground(object sender, EnteredBackgroundEventArgs args)
         {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+            Log.Trace(String.Format("App@{0:X8}: OnEnteredBackground", GetHashCode()));
+            // TODO: Save all tabs
         }
 
-        /// <summary>
-        /// Invoked when application execution is being suspended.  Application state is saved
-        /// without knowing whether the application will be terminated or resumed with the contents
-        /// of memory still intact.
-        /// </summary>
-        /// <param name="sender">The source of the suspend request.</param>
-        /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private void OnSuspending(object sender, SuspendingEventArgs args)
         {
-            var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
-            deferral.Complete();
+            Log.Trace(String.Format("App@{0:X8}: OnSuspending", GetHashCode()));
+            // TODO: Save all tabs
+        }
+
+        private void OnResuming(object sender, object args)
+        {
+            Log.Trace(String.Format("App@{0:X8}: OnResuming", GetHashCode()));
+            // TODO: Load all tabs
+        }
+
+        private void OnLeavingBackground(object sender, LeavingBackgroundEventArgs args)
+        {
+            Log.Info(String.Format("App@{0:X8}: OnLeavingBackground", GetHashCode()));
+            // TODO: Load all tabs
         }
     }
 }
