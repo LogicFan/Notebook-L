@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace Notebook_L.FileSystem
 {
-    class Notebook : IFileItem
+    class Notebook
     {
         private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<Notebook>();
 
@@ -18,12 +18,12 @@ namespace Notebook_L.FileSystem
 
         public String Name => Data.Name;
         public String Path => Folder.Path;
+        public ImageSource Icon { get; }
 
         public Location Data => Folder.FileSystem.Data;
         public Boolean IsPrimary { get; set; } = false;
         public String UIName => Name + (IsPrimary ? " (Primary)" : "");
         public String UIPath => Data.Source.ToString("G") + " - " + Path;
-        public ImageSource Icon { get; }
 
         public Notebook(IFolder folder)
         {

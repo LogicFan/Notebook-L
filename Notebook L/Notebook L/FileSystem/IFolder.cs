@@ -4,8 +4,11 @@ using System.Threading.Tasks;
 
 namespace Notebook_L.FileSystem
 {
-    interface IFolder : IFileItem
+    interface IFolder
     {
+        String Name { get; }
+        String Path { get; }
+
         IFileSystem FileSystem { get; }
     
         Task<IFolder> GetParentAsync();

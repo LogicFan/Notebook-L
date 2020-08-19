@@ -4,8 +4,11 @@ using Windows.Storage;
 
 namespace Notebook_L.FileSystem
 {
-    interface IFile : IFileItem
+    interface IFile
     {
+        String Name { get; }
+        String Path { get; }
+
         IFileSystem FileSystem { get; }
         
         Task<IFolder> GetParentAsync();

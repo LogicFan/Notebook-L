@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using MetroLog;
+using Windows.UI.Xaml.Media;
 
 namespace Notebook_L.FileSystem
 {
@@ -38,8 +39,9 @@ namespace Notebook_L.FileSystem
         private readonly StorageFolder Folder;
         
         public String Name => Folder.Name;
-        public IFileSystem FileSystem { get; }
         public String Path => Folder.Path;
+
+        public IFileSystem FileSystem { get; }
 
         public LocalFolder(StorageFolder folder, IFileSystem fileSystem)
         {
@@ -86,8 +88,9 @@ namespace Notebook_L.FileSystem
         private readonly StorageFile File;
 
         public String Name => File.Name;
-        public IFileSystem FileSystem { get; }
         public String Path => File.Path;
+
+        public IFileSystem FileSystem { get; }
 
         public LocalFile(StorageFile file, IFileSystem fileSystem)
         {

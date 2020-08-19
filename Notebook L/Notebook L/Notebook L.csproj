@@ -133,7 +133,6 @@
     <Compile Include="Constant.cs" />
     <Compile Include="FileSystem\FileSystemFactory.cs" />
     <Compile Include="FileSystem\IFile.cs" />
-    <Compile Include="FileSystem\IFileItem.cs" />
     <Compile Include="FileSystem\IFileSystem.cs" />
     <Compile Include="FileSystem\IFolder.cs" />
     <Compile Include="FileSystem\LocalFileSystem.cs" />
@@ -144,6 +143,8 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FileItem\Folder.cs" />
+    <Compile Include="FileItem\IFileItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serializable\Location.cs" />
     <Compile Include="Setting\AboutPage.xaml.cs">
