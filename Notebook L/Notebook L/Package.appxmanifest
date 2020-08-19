@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="fcda00cf-6487-463f-b1e9-c39e62a23045"
+    Name="f5691707-1e6c-4d6f-b360-4253b9ef204d"
     Publisher="CN=fanyo"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="fcda00cf-6487-463f-b1e9-c39e62a23045" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="f5691707-1e6c-4d6f-b360-4253b9ef204d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>Notebook L</DisplayName>
