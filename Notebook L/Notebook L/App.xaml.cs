@@ -21,10 +21,10 @@ namespace Notebook_L
             LogManagerFactory.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new StreamingFileTarget());
             GlobalCrashHandler.Configure();
 #if DEBUG
-            Log.Info(String.Format("The LocalFolder is {0}", ApplicationData.Current.LocalFolder.Path));
+            Log.Info("The LocalFolder is {0}", ApplicationData.Current.LocalFolder.Path);
 #endif
 
-            Log.Trace(String.Format("Create object App@{0:X8}", GetHashCode()));
+            Log.Trace("Create object App@{0:X8}", GetHashCode());
 
             InitializeComponent();
 
@@ -42,11 +42,11 @@ namespace Notebook_L
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            Log.Trace(String.Format("App@{0:X8}: OnLaunched", GetHashCode()));
+            Log.Trace("App@{0:X8}: OnLaunched", GetHashCode());
             
-            Log.Info(String.Format("PreviousExecutionState = {0}, PrelaunchActivated = {1}",
+            Log.Info("PreviousExecutionState = {0}, PrelaunchActivated = {1}",
                 args.PreviousExecutionState.ToString("G"),
-                args.PrelaunchActivated));
+                args.PrelaunchActivated);
 
             if (!(Window.Current.Content is Frame rootFrame))
             {
@@ -74,25 +74,25 @@ namespace Notebook_L
 
         private void OnEnteredBackground(object sender, EnteredBackgroundEventArgs args)
         {
-            Log.Trace(String.Format("App@{0:X8}: OnEnteredBackground", GetHashCode()));
+            Log.Trace("App@{0:X8}: OnEnteredBackground", GetHashCode());
             // TODO: Save all tabs
         }
 
         private void OnSuspending(object sender, SuspendingEventArgs args)
         {
-            Log.Trace(String.Format("App@{0:X8}: OnSuspending", GetHashCode()));
+            Log.Trace("App@{0:X8}: OnSuspending", GetHashCode());
             // TODO: Save all tabs
         }
 
         private void OnResuming(object sender, object args)
         {
-            Log.Trace(String.Format("App@{0:X8}: OnResuming", GetHashCode()));
+            Log.Trace("App@{0:X8}: OnResuming", GetHashCode());
             // TODO: Load all tabs
         }
 
         private void OnLeavingBackground(object sender, LeavingBackgroundEventArgs args)
         {
-            Log.Info(String.Format("App@{0:X8}: OnLeavingBackground", GetHashCode()));
+            Log.Info("App@{0:X8}: OnLeavingBackground", GetHashCode());
             // TODO: Load all tabs
         }
     }
