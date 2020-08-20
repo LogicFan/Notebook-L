@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Notebook_L.FileSystem
 {
-    public interface IFolder
+    public interface IFolder : IFileBase
     {
+        IFileSystem FileSystem { get; }
+
+        Task<IEnumerable<IFolder>> GetFoldersAsync();
+        Task<IEnumerable<IFile>> GetFilesAsync();
+
+        Task<IFolder> CreateFolderAsync(String name);
+        Task<IFile> CreateFileAsync(String name);
     }
 }

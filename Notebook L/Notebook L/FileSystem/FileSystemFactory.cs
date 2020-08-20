@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Notebook_L.FileSystem
 {
-    public class FileSystemFactory
+    static public class FileSystemFactory
     {
+        public static IFileSystem CreateFileSystem(LocationData data)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

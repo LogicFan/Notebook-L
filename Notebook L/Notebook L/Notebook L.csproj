@@ -133,6 +133,7 @@
     <Compile Include="FileSystem\FileSystemExtension.cs" />
     <Compile Include="FileSystem\FileSystemFactory.cs" />
     <Compile Include="FileSystem\IFile.cs" />
+    <Compile Include="FileSystem\IFileBase.cs" />
     <Compile Include="FileSystem\IFileSystem.cs" />
     <Compile Include="FileSystem\IFolder.cs" />
     <Compile Include="FileSystem\LocationData.cs" />
