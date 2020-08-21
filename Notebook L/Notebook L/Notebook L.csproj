@@ -130,6 +130,7 @@
     <Compile Include="BlankPage.xaml.cs">
       <DependentUpon>BlankPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FileSystem\Detail\LocalFileSystem.cs" />
     <Compile Include="FileSystem\FileSystemExtension.cs" />
     <Compile Include="FileSystem\FileSystemFactory.cs" />
     <Compile Include="FileSystem\IFile.cs" />
