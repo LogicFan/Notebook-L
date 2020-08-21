@@ -10,8 +10,6 @@ namespace UnitTest.FileSystem
     [TestClass]
     public class LocationDataTest
     {
-        public TestContext TestContext { get; set; }
-
         private const String TestName = "ynNWTQI5R1i9A1KM";
         private const String TestCredential = "FdfEdNQdR9bHCwI1";
         private const LocationData.SourceType TestSource = LocationData.SourceType.OneDrive;
@@ -28,8 +26,6 @@ namespace UnitTest.FileSystem
             };
             String str = JsonConvert.SerializeObject(orig);
             LocationData targ = JsonConvert.DeserializeObject<LocationData>(str);
-
-            TestContext.WriteLine(str);
 
             Assert.AreEqual(orig.Name, targ.Name);
             Assert.AreEqual(orig.Source, targ.Source);
@@ -48,8 +44,6 @@ namespace UnitTest.FileSystem
 
             String str = JsonConvert.SerializeObject(orig);
             MockLocationData targ = JsonConvert.DeserializeObject<MockLocationData>(str);
-
-            TestContext.WriteLine(targ.Credential);
 
             Assert.AreNotEqual(orig.Credential, targ.Credential);
         }
