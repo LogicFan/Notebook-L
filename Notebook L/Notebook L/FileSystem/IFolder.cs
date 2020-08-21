@@ -6,8 +6,6 @@ namespace Notebook_L.FileSystem
 {
     public interface IFolder : IFileBase
     {
-        IFileSystem FileSystem { get; }
-
         Task<IEnumerable<IFolder>> GetFoldersAsync();
         Task<IEnumerable<IFile>> GetFilesAsync();
 
