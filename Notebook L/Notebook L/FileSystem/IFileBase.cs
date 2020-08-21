@@ -11,7 +11,7 @@ namespace Notebook_L.FileSystem
 
         Task<IFolder> GetParentAsync();
 
-        void RenameAsync(String name);
-        void DeleteAsync();
+        Task RenameAsync(String name);
+        Task DeleteAsync();
     }
 }
