@@ -13,7 +13,7 @@ namespace Notebook_L.FileSystem.Detail
 
         private StorageFolder m_folder;
 
-        public LocationData Data { get; private set; }
+        public FileSystemData Data { get; private set; }
         public String RootPath => m_folder.Path;
 
         private LocalFileSystem()
@@ -21,7 +21,7 @@ namespace Notebook_L.FileSystem.Detail
             Log.Trace("Create object LocalFileSystem@{0:X8}", GetHashCode());
         }
 
-        public async static Task<IFileSystem> CreateFileSystemAsync(LocationData data)
+        public async static Task<IFileSystem> CreateFileSystemAsync(FileSystemData data)
         {
             Log.Trace("CreateFileSystemAsync");
             Log.Info("data = LocationData@{0:X8}", data.GetHashCode());

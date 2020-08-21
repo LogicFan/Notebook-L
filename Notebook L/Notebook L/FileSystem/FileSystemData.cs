@@ -8,9 +8,9 @@ using MetroLog;
 namespace Notebook_L.FileSystem
 {
     [Serializable]
-    public sealed class LocationData : ISerializable
+    public sealed class FileSystemData : ISerializable
     {
-        private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<LocationData>();
+        private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<FileSystemData>();
 
         public enum SourceType
         {
@@ -46,12 +46,12 @@ namespace Notebook_L.FileSystem
             }
         }
 
-        public LocationData()
+        public FileSystemData()
         {
             Log.Trace("Create object LocationData@{0:X8}", GetHashCode());
         }
 
-        public LocationData(SerializationInfo info, StreamingContext context)
+        public FileSystemData(SerializationInfo info, StreamingContext context)
         {
             Log.Trace("Create object LocationData@{0:X8}", GetHashCode());
 

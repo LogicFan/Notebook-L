@@ -198,10 +198,10 @@ namespace UnitTest.FileSystem
         [TestMethod]
         public async Task LocalFileSystem()
         {
-            IFileSystem fileSystem = await FileSystemFactory.CreateFileSystemAsync(new LocationData
+            IFileSystem fileSystem = await FileSystemFactory.CreateFileSystemAsync(new FileSystemData
             {
                 Name = "Test-LocalFileSystem",
-                Source = LocationData.SourceType.Local,
+                Source = FileSystemData.SourceType.Local,
                 Credential = "No Credential Needed"
             });
 

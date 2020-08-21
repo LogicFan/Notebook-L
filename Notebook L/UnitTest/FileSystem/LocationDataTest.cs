@@ -12,12 +12,12 @@ namespace UnitTest.FileSystem
     {
         private const String TestName = "ynNWTQI5R1i9A1KM";
         private const String TestCredential = "FdfEdNQdR9bHCwI1";
-        private const LocationData.SourceType TestSource = LocationData.SourceType.OneDrive;
+        private const FileSystemData.SourceType TestSource = FileSystemData.SourceType.OneDrive;
 
         [TestMethod]
         public void JsonSerialization()
         {
-            LocationData orig = new LocationData
+            FileSystemData orig = new FileSystemData
             {
 
                 Name = TestName,
@@ -25,7 +25,7 @@ namespace UnitTest.FileSystem
                 Credential = TestCredential
             };
             String str = JsonConvert.SerializeObject(orig);
-            LocationData targ = JsonConvert.DeserializeObject<LocationData>(str);
+            FileSystemData targ = JsonConvert.DeserializeObject<FileSystemData>(str);
 
             Assert.AreEqual(orig.Name, targ.Name);
             Assert.AreEqual(orig.Source, targ.Source);
@@ -35,7 +35,7 @@ namespace UnitTest.FileSystem
         [TestMethod]
         public void CredentialEncryption()
         {
-            LocationData orig = new LocationData
+            FileSystemData orig = new FileSystemData
             {
                 Name = TestName,
                 Source = TestSource,

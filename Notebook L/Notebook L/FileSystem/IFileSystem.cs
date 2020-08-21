@@ -4,7 +4,7 @@ namespace Notebook_L.FileSystem
 {
     public interface IFileSystem
     {
-        LocationData Data { get; }
+        FileSystemData Data { get; }
         String RootPath { get; }
 
         IFolder GetRootFolder();

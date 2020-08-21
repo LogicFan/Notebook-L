@@ -14,13 +14,13 @@ namespace Notebook_L.FileSystem
         public static StorageFolder TemporaryFolder => ApplicationData.Current.TemporaryFolder;
         public static StorageFolder RoamingFolder => ApplicationData.Current.RoamingFolder;
 
-        public async static Task<IFileSystem> CreateFileSystemAsync(LocationData data)
+        public async static Task<IFileSystem> CreateFileSystemAsync(FileSystemData data)
         {
             Log.Trace("CreateFileSystemAsync");
 
             switch (data.Source)
             {
-                case LocationData.SourceType.Local:
+                case FileSystemData.SourceType.Local:
                     return await LocalFileSystem.CreateFileSystemAsync(data);
                 default:
                     throw new NotImplementedException();

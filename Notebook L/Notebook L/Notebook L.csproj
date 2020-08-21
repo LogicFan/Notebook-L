@@ -137,7 +137,7 @@
     <Compile Include="FileSystem\IFileBase.cs" />
     <Compile Include="FileSystem\IFileSystem.cs" />
     <Compile Include="FileSystem\IFolder.cs" />
-    <Compile Include="FileSystem\LocationData.cs" />
+    <Compile Include="FileSystem\FileSystemData.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
