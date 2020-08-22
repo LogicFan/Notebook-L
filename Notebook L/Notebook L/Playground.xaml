@@ -1,0 +1,50 @@
+﻿<Page
+    x:Class="Notebook_L.Playground"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Notebook_L"
+    xmlns:common="using:Notebook_L.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="Button_ModifyStr" Click="Button_ModifyStr_Click" Content="ModifyStr"/>
+            <Button x:Name="Button_Modify"    Click="Button_Modify_Click"    Content="Modify"/>
+            <Button x:Name="Button_Add"       Click="Button_Add_Click"       Content="Add"/>
+            <Button x:Name="Button_Clear"     Click="Button_Clear_Click"     Content="Clear"/>
+            <Button x:Name="Button_Insert"    Click="Button_Insert_Click"    Content="Insert"/>
+            <Button x:Name="Button_Remove"    Click="Button_Remove_Click"    Content="Remove"/>
+            <Button x:Name="Button_RemoveAt"  Click="Button_RemoveAt_Click"  Content="RemoveAt"/>
+            <Button x:Name="Button_Set"       Click="Button_Set_Click"       Content="Set"/>
+            <Button x:Name="Button_Move"      Click="Button_Move_Click"      Content="Move"/>
+            <muxc:NumberBox x:Name="NumberBox" Value="0"/>
+        </StackPanel>
+
+        <TextBlock Text="{x:Bind OrigString.Data, Mode=OneWay}"/>
+        <TextBlock Text="{x:Bind TargString.Data, Mode=OneWay}"/>
+
+        <StackPanel Orientation="Horizontal">
+            <ListView x:Name="ListView_Orig"
+                  Loaded="ListView_Orig_Loaded">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="common:ObservableItem">
+                        <TextBlock Text="{x:Bind Data, Mode=OneWay}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <ListView x:Name="ListView_Targ"
+                  Loaded="ListView_Targ_Loaded">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="common:ObservableItem">
+                        <TextBlock Text="{x:Bind Data, Mode=OneWay}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+    </StackPanel>
+</Page>

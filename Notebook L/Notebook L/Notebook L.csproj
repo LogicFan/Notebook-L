@@ -130,6 +130,7 @@
     <Compile Include="BlankPage.xaml.cs">
       <DependentUpon>BlankPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\ObservableItem.cs" />
     <Compile Include="FileSystem\Detail\LocalFileSystem.cs" />
     <Compile Include="FileSystem\FileSystemExtension.cs" />
     <Compile Include="FileSystem\FileSystemFactory.cs" />
@@ -140,6 +141,9 @@
     <Compile Include="FileSystem\FileSystemData.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Playground.xaml.cs">
+      <DependentUpon>Playground.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -171,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Playground.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Integrative.CrossProtect">
@@ -190,6 +198,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Notebook L.ruleset" />
   </ItemGroup>
   <ItemGroup />

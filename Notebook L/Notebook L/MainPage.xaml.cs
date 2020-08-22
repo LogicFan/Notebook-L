@@ -139,7 +139,7 @@ namespace Notebook_L
             switch (id)
             {
                 case HomePageTabId:
-                    frame.Navigate(typeof(BlankPage));
+                    frame.Navigate(typeof(Playground));
                     tabViewItem.Header = "Home";
                     tabViewItem.IconSource = new muxc.SymbolIconSource() { Symbol = Symbol.Home };
                     tabViewItem.Content = frame;
