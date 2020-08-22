@@ -6,7 +6,7 @@ using Windows.Storage;
 
 namespace Notebook_L.FileSystem
 {
-    static public class FileSystemFactory
+    public static class FileSystemFactory
     {
         private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger(typeof(FileSystemFactory).Name);
 
