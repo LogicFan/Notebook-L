@@ -198,7 +198,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Notebook L.ruleset" />
   </ItemGroup>
   <ItemGroup />
