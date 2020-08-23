@@ -1,30 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using MetroLog;
+using System;
+using System.Reflection;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Notebook_L.ViewSetting
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class AboutPage : Page
     {
+        private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<AboutPage>();
+
+        public Version Version => Assembly.GetExecutingAssembly().GetName().Version;
+
+        public String SoftwareName => "Notebook L";
+        public String Platform => "Universal Windows Platform";
+        public String BuildNumber => Version.ToString(3);
+
         public AboutPage()
         {
-            this.InitializeComponent();
+            Log.Trace("Create object AboutPage@{0:X8}", GetHashCode());
+            InitializeComponent();
+        }
+
+        private void Button_Diagnostic_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Log.Trace("AboutPage@{0:X8}: Button_Diagnostic_Click", GetHashCode());
+            throw new NotImplementedException();
         }
     }
 }

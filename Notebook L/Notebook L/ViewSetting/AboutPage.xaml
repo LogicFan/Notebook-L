@@ -8,7 +8,60 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <ScrollViewer ZoomMode="Disabled"
+                  IsVerticalScrollChainingEnabled="True"
+                  HorizontalScrollMode="Disabled"
+                  VerticalScrollMode="Enabled"
+                  VerticalScrollBarVisibility="Auto"
+                  Padding="0,0,16,0">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="About" Style="{StaticResource TitleTextBlockStyle}"/>
+            <Line X2="1" 
+                  Stretch="Fill"
+                  HorizontalAlignment="Right"
+                  Stroke="{ThemeResource SystemChromeMediumColor}"/>
 
-    </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" 
+                           Text="Name"/>
+                <TextBlock Grid.Column="0" Grid.Row="1"
+                           Text="Platform"/>
+                <TextBlock Grid.Column="0" Grid.Row="2"
+                           Text="Build"/>
+
+                <TextBlock Grid.Column="1" Grid.Row="0"
+                           Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"
+                           Text="{x:Bind SoftwareName}"/>
+                <TextBlock Grid.Column="1" Grid.Row="1"
+                           Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"
+                           Text="{x:Bind Platform}"/>
+                <TextBlock Grid.Column="1" Grid.Row="2"
+                           Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"
+                           Text="{x:Bind BuildNumber}"/>
+            </Grid>
+
+            <TextBlock Text="Diagnostic Infomation" Style="{StaticResource TitleTextBlockStyle}"/>
+            <Line X2="1" 
+                  Stretch="Fill"
+                  HorizontalAlignment="Right"
+                  Stroke="{ThemeResource SystemChromeMediumColor}"/>
+
+            <Button x:Name="Button_Diagnostic"
+                    Margin="0,8,0,0"
+                    Click="Button_Diagnostic_Click"
+                    HorizontalAlignment="Center">
+                Export Diagnostic Data
+            </Button>
+        </StackPanel>
+    </ScrollViewer>
 </Page>
