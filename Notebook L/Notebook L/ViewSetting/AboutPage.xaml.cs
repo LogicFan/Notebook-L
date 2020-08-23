@@ -14,7 +14,7 @@ namespace Notebook_L.ViewSetting
     {
         private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<AboutPage>();
 
-        public Version Version => Assembly.GetExecutingAssembly().GetName().Version;
+        public static Version Version => Assembly.GetExecutingAssembly().GetName().Version;
 
         public String SoftwareName => "Notebook L";
         public String Platform => "Universal Windows Platform";
