@@ -12,8 +12,9 @@ namespace Notebook_L.FileSystem.Detail
         private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<LocalFileSystem>();
 
         private StorageFolder m_folder;
+        private FileSystemData m_data;
 
-        public FileSystemData Data { get; private set; }
+        public FileSystemData Data => m_data;
         public String RootPath => m_folder.Path;
 
         private LocalFileSystem()
@@ -29,7 +30,7 @@ namespace Notebook_L.FileSystem.Detail
             IFileSystem fileSystem = new LocalFileSystem
             {
                 m_folder = await FileSystemFactory.LocalFolder.CreateFolderAsync("Notebook_L", CreationCollisionOption.OpenIfExists),
-                Data = data
+                m_data = data
             };
 
             return fileSystem;
