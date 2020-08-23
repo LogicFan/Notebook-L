@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
@@ -7,38 +8,34 @@ namespace Notebook_L.FileItem
 {
     public interface IFileItem : IDisposable, INotifyPropertyChanged
     {
+        FileItemType ItemType { get; }
         String Name { get; }
         String Path { get; }
-        FileItemType ItemType { get; }
-
         ImageSource Icon { get; }
-        //Boolean IsFlagged { get; }
-        
         DateTime ModifiedTime { get; }
+        Boolean IsFlagged { get; }
 
-        // TODO Add events
-        //Boolean IsOpenable { get; }
-        //Boolean IsCopyable { get; }
-        //Boolean IsMoveable { get; }
-        //Boolean IsRemoveable { get; }
-        //Boolean IsExportable { get; }
-        //Boolean IsFlagable { get; }
+        ObservableCollection<IFileItem> Items { get; }
 
-        //EventHandler<FileItemEventArgs> RaiseOpenEvent { get; }
-        //EventHandler<FileItemEventArgs> RaiseCopyEvent { get; }
-        //EventHandler<FileItemEventArgs> RaiseMoveEvent { get; }
-        //EventHandler<FileItemEventArgs> RaiseRemoveEvent { get; }
-        //EventHandler<FileItemEventArgs> RaiseAddItemEvent { get; }
-        //EventHandler<FileItemEventArgs> RaiseExportEvent { get; }
-        //EventHandler<FileItemEventArgs> RaiseFlagEvent { get; }
+        Boolean IsCopyable { get; }
+        Boolean IsMoveable { get; }
+        Boolean IsRemoveable { get; }
+        Boolean IsExportable { get; }
+        Boolean IsFlagable { get; }
 
-        //Task OpenAsync();
-        //Task CopyAsync();
-        //Task MoveAsync();
-        //Task RemoveAsync();
-        //Task AddItemAsnyc();
-        //Task ExportAsync();
-        //Task FlagAsync();
+        event EventHandler<FileItemEventArgs> RaiseOpenEvent;
+        event EventHandler<FileItemEventArgs> RaiseCopyEvent;
+        event EventHandler<FileItemEventArgs> RaiseMoveEvent;
+        event EventHandler<FileItemEventArgs> RaiseRemoveEvent;
+        event EventHandler<FileItemEventArgs> RaiseExportEvent;
+        event EventHandler<FileItemEventArgs> RaiseFlagEvent;
+
+        Task OpenAsync(object args);
+        Task CopyAsync(object args);
+        Task MoveAsync(object args);
+        Task RemoveAsync(object args);
+        Task ExportAsync(object args);
+        Task FlagAsync(object args);
     }
 
     public enum FileItemType
