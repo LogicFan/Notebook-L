@@ -132,6 +132,7 @@
     </Compile>
     <Compile Include="Common\ObservableItem.cs" />
     <Compile Include="FileItem\FileItemFactory.cs" />
+    <Compile Include="FileItem\FileItemMetadata.cs" />
     <Compile Include="FileItem\IFileItem.cs" />
     <Compile Include="FileItem\Library.cs" />
     <Compile Include="FileSystem\Detail\LocalFileSystem.cs" />
