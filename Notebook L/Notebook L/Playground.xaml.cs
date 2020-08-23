@@ -9,9 +9,27 @@ using Windows.UI.Xaml.Controls;
 using System.Collections.Specialized;
 using MetroLog;
 using Notebook_L.Common;
+using Windows.UI.Xaml.Data;
+using System.Globalization;
 
 namespace Notebook_L
 {
+    public class DateFormatter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            DateTime time = (DateTime)value;
+            if (time == new DateTime()) { return ""; }
+            return value.ToString();
+        }
+
+        public object ConvertBack(object value, Type targetType,
+            object parameter, string language)
+        {
+            throw new InvalidOperationException();
+        }
+    }
+
     public sealed partial class Playground : Page
     {
         private static readonly ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<Playground>();
@@ -30,6 +48,8 @@ namespace Notebook_L
         public ObservableCollection<ObservableItem<String>> OrigCollection;
         public ObservableCollection<ObservableItem<String>> TargCollection;
 
+        public DateTime Time = new DateTime();
+        public DateTime TimeNow = DateTime.Now;
 
         public Playground()
         {

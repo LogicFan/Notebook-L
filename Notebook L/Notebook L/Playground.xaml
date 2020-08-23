@@ -10,6 +10,10 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <local:DateFormatter x:Key="FormatConverter" />
+    </Page.Resources>
+
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
             <Button x:Name="Button_ModifyStr" Click="Button_ModifyStr_Click" Content="ModifyStr"/>
@@ -26,6 +30,11 @@
 
         <TextBlock Text="{x:Bind OrigString.Data, Mode=OneWay}"/>
         <TextBlock Text="{x:Bind TargString.Data, Mode=OneWay}"/>
+
+        <TextBlock Text="{x:Bind Time, Converter={StaticResource FormatConverter}}"/>
+        <TextBlock Text="{x:Bind TimeNow, Converter={StaticResource FormatConverter}}"/>
+        <TextBlock Text="{x:Bind Time}"/>
+        <TextBlock Text="{x:Bind TimeNow}"/>
 
         <StackPanel Orientation="Horizontal">
             <ListView x:Name="ListView_Orig"
