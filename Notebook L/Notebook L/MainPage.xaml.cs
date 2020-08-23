@@ -145,7 +145,7 @@ namespace Notebook_L
                     tabViewItem.Content = frame;
                     break;
                 case SettingPageTabId:
-                    frame.Navigate(typeof(BlankPage));
+                    frame.Navigate(typeof(SettingPage));
                     tabViewItem.Header = "Settings";
                     tabViewItem.IconSource = new muxc.SymbolIconSource() { Symbol = Symbol.Setting };
                     tabViewItem.Content = frame;
