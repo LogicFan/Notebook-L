@@ -65,16 +65,21 @@ namespace Notebook_L.FileItem
 
         public Task OpenAsync(object args)
         {
+            RaiseOpenEvent?.Invoke(this, new FileItemEventArgs());
             throw new NotImplementedException();
         }
         public Task ExportAsync(object args)
         {
+            RaiseExportEvent?.Invoke(this, new FileItemEventArgs());
             throw new NotImplementedException();
+        }
+        public Task RemoveAsync(object args) {
+            RaiseRemoveEvent?.Invoke(this, new FileItemEventArgs());
+            throw new NotImplementedException(); 
         }
 
         public Task CopyAsync(object args) { throw new InvalidOperationException(); }
         public Task MoveAsync(object args) { throw new InvalidOperationException(); }
-        public Task RemoveAsync(object args) { throw new InvalidOperationException(); }
         public Task FlagAsync(object args) { throw new InvalidOperationException(); }
 
         public void Dispose() { }
